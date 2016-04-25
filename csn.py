@@ -47,7 +47,7 @@ class Csn:
         Csn._depth = 0
         Csn._mean_depth = 0
     
-    def __init__(self, data, clt = None, ll = 0.0,  min_instances = 5, min_features = 3, 
+    def __init__(self, data,vdata, clt = None, ll = 0.0,  min_instances = 5, min_features = 3,
                  alpha = 1.0, d = None, n_original_samples = None,
                  random_forest = False, m_priors = None, j_priors = None, 
                  and_leaves=False, and_inners=False, min_gain = None, depth = 1,
@@ -63,7 +63,7 @@ class Csn:
         self.node = TreeNode()
         self.sample_weight = sample_weight
         self.sum_nodes = sum_nodes
-
+        self.vdata = vdata
         if n_original_samples is None:
             self.n_original_samples = self.data.shape[0]
         else:
@@ -113,7 +113,7 @@ class Csn:
 
         if clt is None:
             self.node.cltree = Cltree()
-            self.node.cltree.fit(data, self.m_priors, self.j_priors, alpha=self.alpha, 
+            self.node.cltree.fit(data,vdata, self.m_priors, self.j_priors, alpha=self.alpha,
                                  and_leaves=self.and_leaves, sample_weight=self.sample_weight)
             self.orig_ll = self.node.cltree.score_samples_log_proba(self.data, sample_weight=self.sample_weight)
             self.d = int(math.sqrt(self.data.shape[1]))
@@ -446,7 +446,7 @@ class Csn:
             else:
                 print(" > no cutting due to few instances")
         if is_and_node(self.node):
-            Csn._and_nodes = Csn._and_nodes + 1
+            Csn._and_nodes +=1
 
         # free memory before to recurse
         self.free_memory()
@@ -561,9 +561,9 @@ class Csn:
                 CL_l = Cltree()
                 CL_r = Cltree()
 
-                CL_l.fit(left_data,self.m_priors,self.j_priors,scope=left_scope,alpha=self.alpha*left_weight, 
+                CL_l.fit(left_data,self.vdata,self.m_priors,self.j_priors,scope=left_scope,alpha=self.alpha*left_weight,
                               and_leaves=self.and_leaves, sample_weight = left_sample_weight)
-                CL_r.fit(right_data,self.m_priors,self.j_priors,scope=right_scope,alpha=self.alpha*right_weight, 
+                CL_r.fit(right_data,self.vdata,self.m_priors,self.j_priors,scope=right_scope,alpha=self.alpha*right_weight,
                               and_leaves=self.and_leaves, sample_weight = right_sample_weight)
 
                 l_ll = CL_l.score_samples_log_proba(left_data, sample_weight = left_sample_weight)
@@ -627,7 +627,8 @@ class Csn:
                 # free memory before to recurse
                 self.free_memory()
 
-                self.node.left_child = Csn(data=best_left_data, 
+                self.node.left_child = Csn(data=best_left_data,
+                                           vdata=self.vdata,
                                            clt=best_clt_l, ll=best_l_ll, 
                                            min_instances=self.min_instances, 
                                            min_features=self.min_features, alpha=self.alpha*best_left_weight, 
@@ -637,7 +638,8 @@ class Csn:
                                            and_leaves=self.and_leaves, and_inners=self.and_inners,
                                            min_gain = self.min_gain, depth=self.depth+1,
                                            sample_weight = best_left_sample_weight)
-                self.node.right_child = Csn(data=best_right_data, 
+                self.node.right_child = Csn(data=best_right_data,
+                                            vdata=self.vdata,
                                             clt=best_clt_r, ll=best_r_ll, 
                                             min_instances=self.min_instances, 
                                             min_features=self.min_features, alpha=self.alpha*best_right_weight, d=self.d, 

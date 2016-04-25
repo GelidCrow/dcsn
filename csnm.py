@@ -27,12 +27,13 @@ def csv_2_numpy(file, path=DATA_PATH, sep=',', type='int'):
 
 class Csnm:
     
-    def __init__(self, training_data, sample_weight = None, max_components=1,
+    def __init__(self, training_data,validation_data, sample_weight = None, max_components=1,
                  p=1.0, min_instances=5, min_features=3, alpha=1.0, random_forest=False, 
                  and_leaves=False, and_inners=False, sum_nodes=False):
 
         self.max_components = max_components
         self.training_data = training_data
+        self.validation_data = validation_data
         self.min_instances = min_instances
         self.min_features = min_features
         self.and_leaves = and_leaves
@@ -98,8 +99,9 @@ class Csnm:
         for i in range(self.max_components):
 
             CSN.Csn.init_stats()
-
-            self.csns[i] = CSN.Csn(data=self.bags[i],  
+            print('cutset net number : ' + str(i))
+            self.csns[i] = CSN.Csn(data=self.bags[i],
+                                   vdata=self.validation_data,
                                    sample_weight = self.bags_weight[i],
                                    n_original_samples = self.bags[i].shape[0],
                                    min_instances=self.min_instances, min_features=self.min_features, alpha=self.alpha, 

@@ -104,7 +104,7 @@ class Cltree:
     def is_forest(self):
         return self._forest
 
-    def fit(self, X, m_priors, j_priors, alpha=1.0, sample_weight=None, scope=None, and_leaves=False):
+    def fit(self, X,vdata, m_priors, j_priors, alpha=1.0, sample_weight=None, scope=None, and_leaves=False):
         """Fit the model to the data.
 
         Parameters
@@ -159,8 +159,42 @@ class Cltree:
         self.tree[0] = -1
         for p in range(1, self.n_features):
             self.tree[p]=dfs_tree[1][p]
-        
-        penalization = logr(X.shape[0])/(2*X.shape[0])
+
+        # computing the factored represetation
+        self.log_factors = np.zeros((self.n_features, 2, 2))
+        self.log_factors = compute_log_factors(self.tree, self.n_features, log_probs, log_c_probs, self.log_factors)
+
+        self.current_best_validationll=self.score_samples_log_proba(vdata)
+
+
+
+
+        if self.and_leaves:
+            improved = True
+            times = 0
+            while improved==True and times<10:
+                improved=False
+                for i in range(self.n_features):
+                    if  not self.tree[i] == -1 :
+                        new = np.copy(self.tree)
+                        new[i]= -1
+                        valid_ll = self.score_samples_log_proba_v(vdata,new,log_probs,log_c_probs)
+                        if valid_ll > self.current_best_validationll:
+                            """Trovata una migliore approssimazione"""
+                            self.current_best_validationll=valid_ll
+                            self.num_trees+=1
+                            self.tree=new
+                            self.log_factors = np.zeros((self.n_features, 2, 2))
+                            self.log_factors = compute_log_factors(self.tree, self.n_features, log_probs, log_c_probs, self.log_factors)
+                            times+=1
+                            improved=True
+            if self.num_trees>1:
+                self._forest=True
+
+
+        self.num_edges = self.n_features - self.num_trees
+
+        """penalization = logr(X.shape[0])/(2*X.shape[0])
 
         if self.and_leaves == True:
             for p in range(1,self.n_features):
@@ -168,7 +202,7 @@ class Cltree:
                     self.tree[p]=-1
                     self.num_trees = self.num_trees + 1
             if self.num_trees > 1:
-                self._forest = True
+                self._forest = True"""
 
         """
         selected_MI = []
@@ -179,10 +213,7 @@ class Cltree:
             self.tree[selected_MI[p][0]]=-1
         """
 
-        self.num_edges = self.n_features - self.num_trees
-        # computing the factored represetation
-        self.log_factors = np.zeros((self.n_features, 2, 2))
-        self.log_factors = compute_log_factors(self.tree, self.n_features, log_probs, log_c_probs, self.log_factors)
+
 
     def compute_log_probs(self, X, sample_weight, m_priors, j_priors):
         """ WRITEME """
@@ -279,4 +310,16 @@ class Cltree:
             else:
                 prob = prob + self.log_factors[feature, x[feature], x[parent]]
         return prob
+    def score_samples_log_proba_v(self, X,tree,log_probs,log_c_probs):
+        """ WRITEME """
+        prob = X[:,0]*0.0
+        log_factors = np.zeros((self.n_features, 2, 2))
+        log_factors=compute_log_factors(tree, self.n_features, log_probs, log_c_probs, log_factors)
+        for feature in range(0,self.n_features):
+            parent = tree[feature]
+            if parent == -1:
+                prob = prob + log_factors[feature, X[:,feature], 0]
+            else:
+                prob = prob + log_factors[feature, X[:,feature], X[:,parent]]
 
+        return prob.mean()

@@ -187,7 +187,8 @@ with open(out_log_path, 'w') as out_log:
                          min_features=min_features, 
                          alpha=alpha, random_forest=rf,
                          and_leaves = and_leaf,
-                         and_inners = and_node,sum_nodes = sum_nodes)
+                         and_inners = and_node,sum_nodes = sum_nodes,
+                         validation_data=valid)
 
                 C.fit()
 
