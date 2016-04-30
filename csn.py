@@ -120,7 +120,7 @@ class Csn:
             sparsity = 0.0
             sparsity = len(self.data.nonzero()[0])
             sparsity /= (self.data.shape[1] * self.data.shape[0])
-            logger.info("Dataset sparsity: %f", sparsity)
+            #logger.info("Dataset sparsity: %f", sparsity)
         else:
             self.node.cltree = clt
             self.orig_ll = ll
@@ -130,7 +130,7 @@ class Csn:
 
         self.id = Csn._id_node_counter
         Csn._id_node_counter = Csn._id_node_counter + 1
-        print("Block", self.id, "on", len(self.scope), "features and", self.data.shape[0], "instances, local ll:", self.orig_ll)
+        #print("Block", self.id, "on", len(self.scope), "features and", self.data.shape[0], "instances, local ll:", self.orig_ll)
 
         if self.data.shape[0] > self.min_instances:
             if self.data.shape[1] >= self.min_features:
@@ -141,10 +141,10 @@ class Csn:
                         self.and_cut()
                     else:
                         self.or_cut()                            
-            else:
+            """else:
                 print( " > no cutting due to few features")
         else:
-            print(" > no cutting due to few instances")
+            print(" > no cutting due to few instances")"""
 
         if is_tree_node(self.node):
             if self.depth > Csn._depth:
@@ -167,7 +167,7 @@ class Csn:
 
     def show(self):
         """ WRITEME """
-        print ("Learned Cut Set Network")
+        """print ("Learned Cut Set Network")
         self._showl(0)
         print("OR nodes:", Csn._or_nodes)
         print("SUM nodes:", Csn._sum_nodes)
@@ -180,38 +180,38 @@ class Csn:
         print("Total edges:", Csn._or_edges + Csn._clt_edges)
         print("Total nodes:", Csn._or_nodes + Csn._leaf_nodes + Csn._and_nodes)
         print("Depth:", Csn._depth)
-        print("Mean Depth:", Csn._mean_depth / Csn._leaf_nodes)
+        print("Mean Depth:", Csn._mean_depth / Csn._leaf_nodes)"""
 
     def _showl(self,level):
         """ WRITEME """
         if is_or_node(self.node):
-            print(self.id,"OR", self.node.left_weight,self.node.left_child.id,self.node.right_child.id,"on",self.scope[self.node.or_feature])
+            #print(self.id,"OR", self.node.left_weight,self.node.left_child.id,self.node.right_child.id,"on",self.scope[self.node.or_feature])
             self.node.left_child._showl(level+1)
             self.node.right_child._showl(level+1)
         elif is_and_node(self.node):
-            print(self.id, "AND", end="")
+            #print(self.id, "AND", end="")
             for i in range(len(self.tree_forest)):
-                if self.node.or_features[i] == None:
+                """if self.node.or_features[i] == None:
                     print("()", end="")
                 else:
                     print("(",self.node.children_left[i].id,self.node.children_right[i].id,"on",self.node.cltree.scope[self.tree_forest[i][self.node.or_features[i]]],")", end="")
-            print("")
+            print("")"""
             for i in range(len(self.tree_forest)):
                 if self.node.or_features[i] is not None:
                     self.node.children_left[i]._showl(level+1)
                     self.node.children_right[i]._showl(level+1)
         elif is_sum_node(self.node):
-            print(self.id,"SUM", self.node.weights)
+            #print(self.id,"SUM", self.node.weights)
             for c in self.node.children:
                 c._showl(level+1)
         else:
-            print(self.id, "LEAF", end=" ")
-            if self.node.cltree.is_forest():
+            #print(self.id, "LEAF", end=" ")
+            """if self.node.cltree.is_forest():
                 print("Forest")
             else:
                 print("Tree")
                 print(self.node.cltree.tree)
-                print(self.node.cltree.scope)
+                print(self.node.cltree.scope)"""
 
 
     def mpe(self, x):
@@ -290,12 +290,12 @@ class Csn:
                     t_forest.append(i)
             self.tree_forest.append(t_forest)
 
-        print ("AND node")
-        print (self.tree_forest)
+        """print ("AND node")
+        print (self.tree_forest)"""
 
         for i in range(self.node.cltree.num_trees):
 
-            print(" tree", self.tree_forest[i])
+            #print(" tree", self.tree_forest[i])
             sys.stdout.flush()
 
             tree_n_features = len(self.tree_forest[i])
@@ -389,10 +389,10 @@ class Csn:
                             found = True
 
                     gain = (bestlik - orig_ll)
-                    print (" gain:", gain, end = " ")
+                    #print (" gain:", gain, end = " ")
 
-                    if gain <= self.min_gain:
-                        print("no improvement")
+                    """if gain <= self.min_gain:
+                        print("no improvement")"""
 
                     if found==True and gain > self.min_gain:
 
@@ -412,7 +412,7 @@ class Csn:
                         
                         
                         self.node.or_features[i] = best_feature_cut
-                        print(" cutting on feature ", self.node.or_features[i])
+                        #print(" cutting on feature ", self.node.or_features[i])
 
                         instances = self.data.shape[0]
 
@@ -441,10 +441,10 @@ class Csn:
                                                           sample_weight = best_right_sample_weight)
 
 
-                else:
+                """else:
                     print( " > no cutting due to few features")
             else:
-                print(" > no cutting due to few instances")
+                print(" > no cutting due to few instances")"""
         if is_and_node(self.node):
             Csn._and_nodes +=1
 
@@ -455,7 +455,7 @@ class Csn:
 
     def or_cut(self):
         """ WRITEME """
-        print(" > trying to cut ... ")
+        #print(" > trying to cut ... ")
         sys.stdout.flush()
 
         found = False
@@ -491,7 +491,7 @@ class Csn:
 
             # preventing to have a cluster with zero instances
             cardinality = np.sum(clustering)
-            print("   - Clustering instances:",self.data.shape[0], "-", cardinality,self.data.shape[0] - cardinality, end=" ")
+            #print("   - Clustering instances:",self.data.shape[0], "-", cardinality,self.data.shape[0] - cardinality, end=" ")
             if cardinality > 0 and (self.data.shape[0] - cardinality) > 0:
 
                 cluster_0 = (clustering == 0)
@@ -519,7 +519,7 @@ class Csn:
                     clustering_ll = clustering_ll + logr( cluster_0_weight * np.exp(cluster_0_tree.score_sample_log_proba(d)) + cluster_1_weight * np.exp(cluster_1_tree.score_sample_log_proba(d)))
                 clustering_ll = clustering_ll / self.data.shape[0]
 
-                print("ll:", clustering_ll)
+                #print("ll:", clustering_ll)
 
             else:
                 clustering_ll = -np.inf
@@ -602,10 +602,10 @@ class Csn:
         """
 
         gain = (bestlik - self.orig_ll)
-        print ("   - gain cut:", gain, end = "")
+        #print ("   - gain cut:", gain, end = "")
 
         gain_c = (clustering_ll - self.orig_ll)
-        print (" gain clustering:", gain_c)
+        #print (" gain clustering:", gain_c)
 
 
         if (found==True and gain > self.min_gain) or (gain_c > gain and gain_c > self.min_gain):
@@ -617,7 +617,7 @@ class Csn:
                 Csn._or_edges = Csn._or_edges + 2
 
                 self.node.or_feature = best_feature_cut
-                print("   - cutting on feature ", self.node.or_feature, "[#l:",best_left_data.shape[0],", #r:",best_right_data.shape[0],"], gain:", bestlik - self.orig_ll)
+                #print("   - cutting on feature ", self.node.or_feature, "[#l:",best_left_data.shape[0],", #r:",best_right_data.shape[0],"], gain:", bestlik - self.orig_ll)
 
                 instances = self.data.shape[0]
 
@@ -652,7 +652,7 @@ class Csn:
 
             else:
                 self.node = SumNode()
-                print("   - Adding a sum node")
+                #print("   - Adding a sum node")
 
                 Csn._sum_nodes = Csn._sum_nodes + 1
 
@@ -686,11 +686,11 @@ class Csn:
                                               sample_weight = None))
 
         else:
-            print(" no cutting")
-            if self.node.cltree.is_forest():
+            #print(" no cutting")
+            """if self.node.cltree.is_forest():
                 print("   -> Forest with",self.node.cltree.num_trees, "trees")
             else:
-                print("   -> Tree")
+                print("   -> Tree")"""
 
 
     def free_memory(self):

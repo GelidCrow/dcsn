@@ -99,7 +99,7 @@ class Csnm:
         for i in range(self.max_components):
 
             CSN.Csn.init_stats()
-            print('cutset net number : ' + str(i))
+            print('Cutset net number : ' + str(i))
             self.csns[i] = CSN.Csn(data=self.bags[i],
                                    vdata=self.validation_data,
                                    sample_weight = self.bags_weight[i],

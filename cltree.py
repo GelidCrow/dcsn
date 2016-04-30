@@ -11,7 +11,7 @@ import numba
 from scipy import sparse
 from scipy.sparse.csgraph import minimum_spanning_tree
 from scipy.sparse.csgraph import depth_first_order
-
+import random
 from logr import logr
 from utils import check_is_fitted
 
@@ -167,29 +167,10 @@ class Cltree:
         self.current_best_validationll=self.score_samples_log_proba(vdata)
 
 
-
-
         if self.and_leaves:
-            improved = True
-            times = 0
-            while improved==True and times<10:
-                improved=False
-                for i in range(self.n_features):
-                    if  not self.tree[i] == -1 :
-                        new = np.copy(self.tree)
-                        new[i]= -1
-                        valid_ll = self.score_samples_log_proba_v(vdata,new,log_probs,log_c_probs)
-                        if valid_ll > self.current_best_validationll:
-                            """Trovata una migliore approssimazione"""
-                            self.current_best_validationll=valid_ll
-                            self.num_trees+=1
-                            self.tree=new
-                            self.log_factors = np.zeros((self.n_features, 2, 2))
-                            self.log_factors = compute_log_factors(self.tree, self.n_features, log_probs, log_c_probs, self.log_factors)
-                            times+=1
-                            improved=True
-            if self.num_trees>1:
-                self._forest=True
+            self.__makeForest(vdata, log_probs, log_c_probs)
+
+
 
 
         self.num_edges = self.n_features - self.num_trees
@@ -255,7 +236,7 @@ class Cltree:
         Prob = X[:,0]*0.0
         for feature in range(0,self.n_features):
             parent = self.tree[feature]
-            if parent == -1:
+            if parent ==-1:
                 Prob = Prob + self.log_factors[feature, X[:,feature],0]
             else:
                 Prob = Prob + self.log_factors[feature, X[:,feature], X[:,parent]]
@@ -272,7 +253,7 @@ class Cltree:
         prob = 0.0
         for feature in range(0,self.n_features):
             parent = self.tree[feature]
-            if parent == -1:
+            if parent ==-1:
                 prob = prob + self.log_factors[feature, x[feature], 0]
             else:
                 prob = prob + self.log_factors[feature, x[feature], x[parent]]
@@ -287,7 +268,7 @@ class Cltree:
         Prob = X[:,0]*0.0
         for feature in features:
             parent = self.tree[feature]
-            if parent == -1:
+            if parent ==-1:
                 Prob = Prob + self.log_factors[feature, X[:,feature], 0]
             else:
                 Prob = Prob + self.log_factors[feature, X[:,feature], X[:,parent]]
@@ -305,7 +286,7 @@ class Cltree:
         prob = 0.0
         for feature in features:
             parent = self.tree[feature]
-            if parent == -1:
+            if parent==-1:
                 prob = prob + self.log_factors[feature, x[feature], 0]
             else:
                 prob = prob + self.log_factors[feature, x[feature], x[parent]]
@@ -317,9 +298,86 @@ class Cltree:
         log_factors=compute_log_factors(tree, self.n_features, log_probs, log_c_probs, log_factors)
         for feature in range(0,self.n_features):
             parent = tree[feature]
-            if parent == -1:
+            if parent ==-1:
                 prob = prob + log_factors[feature, X[:,feature], 0]
             else:
                 prob = prob + log_factors[feature, X[:,feature], X[:,parent]]
 
         return prob.mean()
+
+    def __makeForest(self, vdata, log_probs, log_c_probs):
+        #self.__iterative_improvement(vdata,log_probs,log_c_probs)
+        self.__vns(vdata,log_probs,log_c_probs)
+        if self.num_trees>1:
+            self._forest=True
+
+
+    def __iterative_improvement(self,vdata,log_probs,log_c_probs):
+        improved = True
+        while improved:
+            improved=False
+            best_ll=-np.inf
+            best_edge= None
+            valid_edges=np.where(self.tree!=-1)
+            if np.size(valid_edges) >0:
+                for i in np.nditer(valid_edges):
+                    new = np.copy(self.tree)
+                    new[i]= -1
+                    valid_ll = self.score_samples_log_proba_v(vdata,new,log_probs,log_c_probs)
+                    if valid_ll>best_ll:
+                        best_edge=i
+                        best_ll=valid_ll
+
+
+                if best_ll>self.current_best_validationll:
+                    self.current_best_validationll=best_ll
+                    self.num_trees+=1
+                    self.tree[best_edge]=-1
+                    self.log_factors = np.zeros((self.n_features, 2, 2))
+                    self.log_factors = compute_log_factors(self.tree, self.n_features, log_probs, log_c_probs, self.log_factors)
+                    improved=True
+
+
+
+
+
+
+
+    def __vns(self,vdata,log_probs,log_c_probs,threshold=0.7):
+        times=0
+        valid_edges=np.where(self.tree!=-1)
+        while times<10 and np.size(valid_edges)>0:
+            r=random.uniform(0,1)
+            if r>threshold: #random cut
+
+                r=random.randint(0,np.size(valid_edges)-1)
+                self.tree[r]=-1
+                self.num_trees+=1
+                self.log_factors = np.zeros((self.n_features, 2, 2))
+                self.log_factors = compute_log_factors(self.tree, self.n_features, log_probs, log_c_probs, self.log_factors)
+
+            else:#best cut , if any
+                best_ll=-np.inf
+                best_edge=None
+                for i in np.nditer(valid_edges):
+                    new = np.copy(self.tree)
+                    new[i]= -1
+                    valid_ll = self.score_samples_log_proba_v(vdata,new,log_probs,log_c_probs)
+                    if valid_ll > best_ll:
+                        best_ll=valid_ll
+                        best_edge=i
+
+
+                if best_ll>self.current_best_validationll:
+                    self.current_best_validationll=best_ll
+                    self.tree[best_edge]=-1
+                    self.num_trees+=1
+                    self.log_factors = np.zeros((self.n_features, 2, 2))
+                    self.log_factors = compute_log_factors(self.tree, self.n_features, log_probs, log_c_probs, self.log_factors)
+            times+=1
+            valid_edges=np.where(self.tree!=-1)
+
+
+
+
+
