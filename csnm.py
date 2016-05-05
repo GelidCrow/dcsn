@@ -29,7 +29,7 @@ class Csnm:
     
     def __init__(self, training_data,validation_data, sample_weight = None, max_components=1,
                  p=1.0, min_instances=5, min_features=3, alpha=1.0, random_forest=False, 
-                 and_leaves=False, and_inners=False, sum_nodes=False):
+                 and_leaves=False, and_inners=False, sum_nodes=False,forest_approach=None):
 
         self.max_components = max_components
         self.training_data = training_data
@@ -68,7 +68,7 @@ class Csnm:
         self.clforests = [0.0] * self.max_components
         self.depth = [0.0] * self.max_components
         self.mdepth = [0.0] * self.max_components
-
+        self.approach=forest_approach
         self.create_bags()
 #        print("Correctness:",self.check_correctness())
 
@@ -107,7 +107,8 @@ class Csnm:
                                    min_instances=self.min_instances, min_features=self.min_features, alpha=self.alpha, 
                                    random_forest=self.random_forest,
                                    and_leaves=self.and_leaves, and_inners=self.and_inners,
-                                   depth = 1, sum_nodes=self.sum_nodes)
+                                   depth = 1, sum_nodes=self.sum_nodes,
+                                   forest_approach=self.approach)
 
             self.csns[i].show()
             self.lls[i] = self.csns[i].score_samples_log_proba(self.training_data)

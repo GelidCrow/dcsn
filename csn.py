@@ -51,7 +51,7 @@ class Csn:
                  alpha = 1.0, d = None, n_original_samples = None,
                  random_forest = False, m_priors = None, j_priors = None, 
                  and_leaves=False, and_inners=False, min_gain = None, depth = 1,
-                 sample_weight=None, sum_nodes=False):
+                 sample_weight=None, sum_nodes=False,forest_approach=None):
 
         self.min_instances = min_instances
         self.min_features = min_features
@@ -64,6 +64,7 @@ class Csn:
         self.sample_weight = sample_weight
         self.sum_nodes = sum_nodes
         self.vdata = vdata
+        self.forest_approach=forest_approach
         if n_original_samples is None:
             self.n_original_samples = self.data.shape[0]
         else:
@@ -114,7 +115,8 @@ class Csn:
         if clt is None:
             self.node.cltree = Cltree()
             self.node.cltree.fit(data,vdata, self.m_priors, self.j_priors, alpha=self.alpha,
-                                 and_leaves=self.and_leaves, sample_weight=self.sample_weight)
+                                 and_leaves=self.and_leaves, sample_weight=self.sample_weight,
+                                 forest_approach=self.forest_approach)
             self.orig_ll = self.node.cltree.score_samples_log_proba(self.data, sample_weight=self.sample_weight)
             self.d = int(math.sqrt(self.data.shape[1]))
             sparsity = 0.0

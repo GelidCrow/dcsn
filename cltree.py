@@ -105,7 +105,7 @@ class Cltree:
         return self._forest
 
     def fit(self, X,vdata, m_priors, j_priors, alpha=1.0, sample_weight=None, scope=None, and_leaves=False,
-            forest_approach=None,vns_threshold=1.0,vns_times=10):
+            forest_approach=['ii',0.7,10]):
         """Fit the model to the data.
 
         Parameters
@@ -129,6 +129,13 @@ class Cltree:
         unique identifiers for the features
 
         and_leaves: boolean, default=False
+
+        forest_approach:
+        Defines the approach to be used when creating the forest
+        It has at least one element which defines the name of the approach to be used,
+        the others parameters are strictly dependent on the approach chosen.
+            -ii => Iterative Improvement
+            -vns => Variable Neighbourhood Search
 
         """
 
@@ -169,32 +176,12 @@ class Cltree:
 
 
         if self.and_leaves:
-            self.__makeForest(vdata, log_probs, log_c_probs)
+            self.__makeForest(vdata, log_probs, log_c_probs,forest_approach)
 
 
 
 
         self.num_edges = self.n_features - self.num_trees
-
-        """penalization = logr(X.shape[0])/(2*X.shape[0])
-
-        if self.and_leaves == True:
-            for p in range(1,self.n_features):
-                if MI[self.tree[p],p]<penalization:
-                    self.tree[p]=-1
-                    self.num_trees = self.num_trees + 1
-            if self.num_trees > 1:
-                self._forest = True"""
-
-        """
-        selected_MI = []
-        for p in range(1,self.n_features):
-            selected_MI.append((p,MI[self.tree[p],p]))
-        selected_MI.sort(key=lambda mi: mi[1], reverse=True)
-        for p in range(10,self.n_features-1):
-            self.tree[selected_MI[p][0]]=-1
-        """
-
 
 
     def compute_log_probs(self, X, sample_weight, m_priors, j_priors):
@@ -306,9 +293,14 @@ class Cltree:
 
         return prob.mean()
 
-    def __makeForest(self, vdata, log_probs, log_c_probs):
-        #self.__iterative_improvement(vdata,log_probs,log_c_probs)
-        self.__vns(vdata,log_probs,log_c_probs)
+    def __makeForest(self, vdata, log_probs, log_c_probs,forest_approach):
+        if forest_approach[0]=='ii':
+            self.__iterative_improvement(vdata,log_probs,log_c_probs)
+        elif forest_approach[0]=='vns':
+            t=float(forest_approach[1])
+            ti=int(forest_approach[2])
+            self.__vns(vdata,log_probs,log_c_probs,threshold=t,times=ti)
+
         if self.num_trees>1:
             self._forest=True
 
@@ -344,38 +336,36 @@ class Cltree:
 
 
 
-    def __vns(self,vdata,log_probs,log_c_probs,threshold=0.7):
-        times=0
+    def __vns(self,vdata,log_probs,log_c_probs,threshold=0.7,times=10):
+        t=0
         valid_edges=np.where(self.tree!=-1)
-        while times<10 and np.size(valid_edges)>0:
+        while t<times and np.size(valid_edges)>0:
+            n_ll=-np.inf
             r=random.uniform(0,1)
-            if r>threshold: #random cut
+            edge_to_cut=None
 
+            if r>threshold: #random cut
                 r=random.randint(0,np.size(valid_edges)-1)
-                self.tree[r]=-1
+                new = np.copy(self.tree)
+                new[r]=-1
+                edge_to_cut=r
+                n_ll=self.score_samples_log_proba_v(vdata,new,log_probs,log_c_probs)
+            else:#best cut , if any
+                for i in np.nditer(valid_edges):
+                    n = np.copy(self.tree)
+                    n[i]= -1
+                    valid_ll = self.score_samples_log_proba_v(vdata,n,log_probs,log_c_probs)
+                    if valid_ll > n_ll:
+                        n_ll=valid_ll
+                        edge_to_cut=i
+
+            if n_ll>self.current_best_validationll:
+                self.current_best_validationll=n_ll
+                self.tree[edge_to_cut]=-1
                 self.num_trees+=1
                 self.log_factors = np.zeros((self.n_features, 2, 2))
                 self.log_factors = compute_log_factors(self.tree, self.n_features, log_probs, log_c_probs, self.log_factors)
-
-            else:#best cut , if any
-                best_ll=-np.inf
-                best_edge=None
-                for i in np.nditer(valid_edges):
-                    new = np.copy(self.tree)
-                    new[i]= -1
-                    valid_ll = self.score_samples_log_proba_v(vdata,new,log_probs,log_c_probs)
-                    if valid_ll > best_ll:
-                        best_ll=valid_ll
-                        best_edge=i
-
-
-                if best_ll>self.current_best_validationll:
-                    self.current_best_validationll=best_ll
-                    self.tree[best_edge]=-1
-                    self.num_trees+=1
-                    self.log_factors = np.zeros((self.n_features, 2, 2))
-                    self.log_factors = compute_log_factors(self.tree, self.n_features, log_probs, log_c_probs, self.log_factors)
-            times+=1
+            t+=1
             valid_edges=np.where(self.tree!=-1)
 
 

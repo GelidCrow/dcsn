@@ -46,7 +46,7 @@ def stats_format(stats_list, separator, digits=5):
 
 #########################################
 # creating the opt parser
-parser = argparse.ArgumentParser(epilog='Note: --ii and --vns are mutually exclusive')
+parser = argparse.ArgumentParser()
 parser.add_argument("dataset", type=str, nargs=1,
                     help='Specify a dataset name from data/ (es. nltcs)')
 
@@ -89,14 +89,16 @@ parser.add_argument('--an', action='store_true', default=False,
 parser.add_argument('-v', '--verbose', type=int, nargs='?',
                     default=1,
                     help='Verbosity level')
-parser.add_argument('--ii',action='store_true',default=False)
-parser.add_argument('--vns',type=float,nargs=2,help='First parameter:prob, second:times')
-
-
+parser.add_argument('--ap',nargs='+',help='Specify the approach to be used to create the forest. First parameter is the'
+                                          ' approach\'s name, the others are specific dependent parameters of the'
+                                          ' chosen approach',
+                    default=['ii',0.8,10]
+                    )
 #
 # parsing the args
-args = parser.parse_args()
 
+
+args=parser.parse_args()
 #
 # setting verbosity level
 if args.verbose == 1:
@@ -119,9 +121,7 @@ and_leaf = args.al
 and_node = args.an
 
 sum_nodes = args.sum
-#Iterative improvement
-ii=args.ii
-vns=args.vns #A couple
+ap=args.ap
 
 
 #
@@ -194,7 +194,8 @@ with open(out_log_path, 'w') as out_log:
                          alpha=alpha, random_forest=rf,
                          and_leaves = and_leaf,
                          and_inners = and_node,sum_nodes = sum_nodes,
-                         validation_data=valid)
+                         validation_data=valid,
+                         forest_approach=ap)
 
                 C.fit()
 
