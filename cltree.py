@@ -104,7 +104,8 @@ class Cltree:
     def is_forest(self):
         return self._forest
 
-    def fit(self, X,vdata, m_priors, j_priors, alpha=1.0, sample_weight=None, scope=None, and_leaves=False):
+    def fit(self, X,vdata, m_priors, j_priors, alpha=1.0, sample_weight=None, scope=None, and_leaves=False,
+            forest_approach=None,vns_threshold=1.0,vns_times=10):
         """Fit the model to the data.
 
         Parameters

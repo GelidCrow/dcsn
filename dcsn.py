@@ -46,7 +46,7 @@ def stats_format(stats_list, separator, digits=5):
 
 #########################################
 # creating the opt parser
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(epilog='Note: --ii and --vns are mutually exclusive')
 parser.add_argument("dataset", type=str, nargs=1,
                     help='Specify a dataset name from data/ (es. nltcs)')
 
@@ -89,6 +89,8 @@ parser.add_argument('--an', action='store_true', default=False,
 parser.add_argument('-v', '--verbose', type=int, nargs='?',
                     default=1,
                     help='Verbosity level')
+parser.add_argument('--ii',action='store_true',default=False)
+parser.add_argument('--vns',type=float,nargs=2,help='First parameter:prob, second:times')
 
 
 #
@@ -117,6 +119,10 @@ and_leaf = args.al
 and_node = args.an
 
 sum_nodes = args.sum
+#Iterative improvement
+ii=args.ii
+vns=args.vns #A couple
+
 
 #
 # elaborating the dataset
