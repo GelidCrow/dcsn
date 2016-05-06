@@ -91,7 +91,7 @@ parser.add_argument('-v', '--verbose', type=int, nargs='?',
                     help='Verbosity level')
 parser.add_argument('--ap',nargs='+',help='Specify the approach to be used to create the forest. First parameter is the'
                                           ' approach\'s name, the others are specific dependent parameters of the'
-                                          ' chosen approach',
+                                          ' chosen approach(ii : Iterative improvement,vns: )',
                     default=['ii',0.8,10]
                     )
 #
