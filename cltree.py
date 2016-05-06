@@ -105,7 +105,7 @@ class Cltree:
         return self._forest
 
     def fit(self, X,vdata, m_priors, j_priors, alpha=1.0, sample_weight=None, scope=None, and_leaves=False,
-            forest_approach=['ii',0.7,10]):
+            forest_approach=None):
         """Fit the model to the data.
 
         Parameters
@@ -297,9 +297,13 @@ class Cltree:
         if forest_approach[0]=='ii':
             self.__iterative_improvement(vdata,log_probs,log_c_probs)
         elif forest_approach[0]=='vns':
-            t=float(forest_approach[1])
-            ti=int(forest_approach[2])
-            self.__vns(vdata,log_probs,log_c_probs,threshold=t,times=ti)
+            p=0.7
+            t=10
+            if len(forest_approach)>1:
+                p=float(forest_approach[1])
+            if len(forest_approach)>2:
+                t=int(forest_approach[2])
+            self.__vns(vdata,log_probs,log_c_probs,probability=p,times=t)
 
         if self.num_trees>1:
             self._forest=True
@@ -336,15 +340,16 @@ class Cltree:
 
 
 
-    def __vns(self,vdata,log_probs,log_c_probs,threshold=0.7,times=10):
+    def __vns(self,vdata,log_probs,log_c_probs,probability=0.7,times=10):
         t=0
         valid_edges=np.where(self.tree!=-1)
         while t<times and np.size(valid_edges)>0:
+
             n_ll=-np.inf
             r=random.uniform(0,1)
             edge_to_cut=None
 
-            if r>threshold: #random cut
+            if r>probability: #random cut
                 r=random.randint(0,np.size(valid_edges)-1)
                 new = np.copy(self.tree)
                 new[r]=-1

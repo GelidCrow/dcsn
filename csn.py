@@ -360,10 +360,10 @@ class Csn:
                             CL_l = Cltree()
                             CL_r = Cltree()
 
-                            CL_l.fit(left_data,self.m_priors,self.j_priors,scope=left_scope,alpha=self.alpha*left_weight, 
-                                          and_leaves=self.and_leaves, sample_weight = left_sample_weight)
-                            CL_r.fit(right_data,self.m_priors,self.j_priors,scope=right_scope,alpha=self.alpha*right_weight, 
-                                          and_leaves=self.and_leaves, sample_weight = right_sample_weight)
+                            CL_l.fit(left_data,vdata=self.vdata,m_priors=self.m_priors,j_priors=self.j_priors,scope=left_scope,alpha=self.alpha*left_weight,
+                                          and_leaves=self.and_leaves, sample_weight = left_sample_weight,forest_approach=self.forest_approach)
+                            CL_r.fit(right_data,vdata=self.vdata,m_priors=self.m_priors,j_priors=self.j_priors,scope=right_scope,alpha=self.alpha*right_weight,
+                                          and_leaves=self.and_leaves, sample_weight = right_sample_weight,forest_approach=self.forest_approach)
 
                             l_ll = CL_l.score_samples_log_proba(left_data)
                             r_ll = CL_r.score_samples_log_proba(right_data)
@@ -421,7 +421,7 @@ class Csn:
                         self.node.left_weights[i] = best_left_weight
                         self.node.right_weights[i] = best_right_weight
 
-                        self.node.children_left[i] = Csn(data=best_left_data, 
+                        self.node.children_left[i] = Csn(data=best_left_data,vdata=self.vdata,
                                                          clt=best_clt_l, ll=best_l_ll, 
                                                          min_instances=self.min_instances, 
                                                          min_features=self.min_features, alpha=self.alpha*best_left_weight, 
@@ -430,8 +430,9 @@ class Csn:
                                                          n_original_samples = self.n_original_samples,
                                                          and_leaves=self.and_leaves, and_inners=self.and_inners,
                                                          min_gain = self.min_gain, depth=self.depth+1,
-                                                         sample_weight = best_left_sample_weight)
-                        self.node.children_right[i] = Csn(data=best_right_data, 
+                                                         sample_weight = best_left_sample_weight,
+                                                         forest_approach=self.forest_approach)
+                        self.node.children_right[i] = Csn(data=best_right_data,vdata=self.vdata,
                                                           clt=best_clt_r, ll=best_r_ll, 
                                                           min_instances=self.min_instances, 
                                                           min_features=self.min_features, alpha=self.alpha*best_right_weight, d=self.d, 
@@ -440,7 +441,8 @@ class Csn:
                                                           n_original_samples = self.n_original_samples,
                                                           and_leaves=self.and_leaves, and_inners=self.and_inners,
                                                           min_gain = self.min_gain, depth=self.depth+1,
-                                                          sample_weight = best_right_sample_weight)
+                                                          sample_weight = best_right_sample_weight,
+                                                          forest_approach=self.forest_approach)
 
 
                 """else:
@@ -507,10 +509,10 @@ class Csn:
                 cluster_0_weight = cluster_0_data.shape[0] / self.data.shape[0]
                 cluster_1_weight = cluster_1_data.shape[0] / self.data.shape[0]
 
-                cluster_0_tree.fit(cluster_0_data,self.m_priors,self.j_priors,scope=self.scope,alpha=self.alpha*cluster_0_weight, 
-                           and_leaves=self.and_leaves, sample_weight = None)
-                cluster_1_tree.fit(cluster_1_data,self.m_priors,self.j_priors,scope=self.scope,alpha=self.alpha*cluster_1_weight, 
-                           and_leaves=self.and_leaves, sample_weight = None)
+                cluster_0_tree.fit(cluster_0_data,vdata=self.vdata,m_priors=self.m_priors,j_priors=self.j_priors,scope=self.scope,alpha=self.alpha*cluster_0_weight,
+                           and_leaves=self.and_leaves, sample_weight = None,forest_approach=self.forest_approach)
+                cluster_1_tree.fit(cluster_1_data,m_priors=self.m_priors,j_priors=self.j_priors,scope=self.scope,alpha=self.alpha*cluster_1_weight,
+                           and_leaves=self.and_leaves, sample_weight = None,forest_approach=self.forest_approach)
 
                 cluster_0_ll = cluster_0_tree.score_samples_log_proba(cluster_0_data, sample_weight = None)
                 cluster_1_ll = cluster_1_tree.score_samples_log_proba(cluster_1_data, sample_weight = None)
@@ -564,9 +566,9 @@ class Csn:
                 CL_r = Cltree()
 
                 CL_l.fit(left_data,self.vdata,self.m_priors,self.j_priors,scope=left_scope,alpha=self.alpha*left_weight,
-                              and_leaves=self.and_leaves, sample_weight = left_sample_weight)
+                              and_leaves=self.and_leaves, sample_weight = left_sample_weight,forest_approach=self.forest_approach)
                 CL_r.fit(right_data,self.vdata,self.m_priors,self.j_priors,scope=right_scope,alpha=self.alpha*right_weight,
-                              and_leaves=self.and_leaves, sample_weight = right_sample_weight)
+                              and_leaves=self.and_leaves, sample_weight = right_sample_weight,forest_approach=self.forest_approach)
 
                 l_ll = CL_l.score_samples_log_proba(left_data, sample_weight = left_sample_weight)
                 r_ll = CL_r.score_samples_log_proba(right_data, sample_weight = right_sample_weight)
@@ -639,7 +641,8 @@ class Csn:
                                            n_original_samples = self.n_original_samples,
                                            and_leaves=self.and_leaves, and_inners=self.and_inners,
                                            min_gain = self.min_gain, depth=self.depth+1,
-                                           sample_weight = best_left_sample_weight)
+                                           sample_weight = best_left_sample_weight,
+                                           forest_approach=self.forest_approach)
                 self.node.right_child = Csn(data=best_right_data,
                                             vdata=self.vdata,
                                             clt=best_clt_r, ll=best_r_ll, 
@@ -650,7 +653,8 @@ class Csn:
                                             n_original_samples = self.n_original_samples,
                                             and_leaves=self.and_leaves, and_inners=self.and_inners,
                                             min_gain = self.min_gain, depth=self.depth+1,
-                                            sample_weight = best_right_sample_weight)
+                                            sample_weight = best_right_sample_weight,
+                                            forest_approach=self.forest_approach)
 
             else:
                 self.node = SumNode()
@@ -666,7 +670,7 @@ class Csn:
                 # free memory before to recurse
                 self.free_memory()
 
-                self.node.children.append(Csn(data=cluster_0_data, 
+                self.node.children.append(Csn(data=cluster_0_data,vdata=self.vdata,
                                               clt=cluster_0_tree, ll=cluster_0_ll, 
                                               min_instances=self.min_instances, 
                                               min_features=self.min_features, alpha=self.alpha*cluster_0_weight, 
@@ -675,8 +679,9 @@ class Csn:
                                               n_original_samples = self.n_original_samples,
                                               and_leaves=self.and_leaves, and_inners=self.and_inners,
                                               min_gain = self.min_gain, depth=self.depth+1,
-                                              sample_weight = None))
-                self.node.children.append(Csn(data=cluster_1_data, 
+                                              sample_weight = None,
+                                              forest_approach=self.forest_approach))
+                self.node.children.append(Csn(data=cluster_1_data,vdata=self.vdata,
                                               clt=cluster_1_tree, ll=cluster_1_ll, 
                                               min_instances=self.min_instances, 
                                               min_features=self.min_features, alpha=self.alpha*cluster_1_weight, d=self.d, 
@@ -685,7 +690,8 @@ class Csn:
                                               n_original_samples = self.n_original_samples,
                                               and_leaves=self.and_leaves, and_inners=self.and_inners,
                                               min_gain = self.min_gain, depth=self.depth+1,
-                                              sample_weight = None))
+                                              sample_weight = None,
+                                              forest_approach=self.forest_approach))
 
         else:
             #print(" no cutting")
