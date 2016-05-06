@@ -15,14 +15,14 @@ do a grid search for k in {5,10,15,20}, a in {0.1,0.2,0.3,0.4}, d in
 bagging approach is used. Furthermore, by specifying the -r option a
 random forest approach may be used.
 
-    usage: dcsn.py [-h] [--seed [SEED]] [-o [OUTPUT]] [-r] [-k K [K ...]]
-                   [-d D [D ...]] [-s S [S ...]] [-a ALPHA [ALPHA ...]]
-                   [--al] [--an] [-v [VERBOSE]]
-                   dataset
+    usage: dcsn.py [-h] [--seed [SEED]] [-o [OUTPUT]] [-r] [--sum] [-k K [K ...]]
+               [-d D [D ...]] [-s S [S ...]] [-a ALPHA [ALPHA ...]] [--al]
+               [--an] [-v [VERBOSE]] [--ap AP [AP ...]]
+               dataset
 
     positional arguments:
       dataset               Specify a dataset name from data/ (es. nltcs)
-
+    
     optional arguments:
       -h, --help            show this help message and exit
       --seed [SEED]         Seed for the random generator
@@ -30,6 +30,7 @@ random forest approach may be used.
                             Output dir path
       -r, --random          Random Forest. If set a Random Forest approach is
                             used.
+      --sum                 Use sum nodes.
       -k K [K ...]          Number of components to use. If greater than 1, then a
                             bagging approach is used.
       -d D [D ...]          Min number of instances in a slice to split.
@@ -41,6 +42,10 @@ random forest approach may be used.
                             forests).
       -v [VERBOSE], --verbose [VERBOSE]
                             Verbosity level
+      --ap AP [AP ...]      Specify the approach to be used to create the forest.
+                            First parameter is the approach's name, the others are
+                            specific dependent parameters of the chosen
+                            approach(ii : Iterative improvement,vns: )
 
 
 ## Copyright (C) 2015
