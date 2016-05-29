@@ -296,14 +296,14 @@ class Cltree:
     def __makeForest(self, vdata, log_probs, log_c_probs,forest_approach):
         if forest_approach[0]=='ii':
             self.__iterative_improvement(vdata,log_probs,log_c_probs)
-        elif forest_approach[0]=='vns':
+        elif forest_approach[0]=='rii':
             p=0.7
             t=10
             if len(forest_approach)>1:
                 p=float(forest_approach[1])
             if len(forest_approach)>2:
                 t=int(forest_approach[2])
-            self.__vns(vdata,log_probs,log_c_probs,probability=p,times=t)
+            self.__Randomised_Iterative_Improvement(vdata,log_probs,log_c_probs,probability=p,times=t)
 
         if self.num_trees>1:
             self._forest=True
@@ -340,7 +340,7 @@ class Cltree:
 
 
 
-    def __vns(self,vdata,log_probs,log_c_probs,probability=0.7,times=10):
+    def __Randomised_Iterative_Improvement(self,vdata,log_probs,log_c_probs,probability=0.7,times=10):
         t=0
         valid_edges=np.where(self.tree!=-1)
         while t<times and np.size(valid_edges)>0:

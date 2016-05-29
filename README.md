@@ -45,7 +45,7 @@ random forest approach may be used.
       --ap AP [AP ...]      Specify the approach to be used to create the forest.
                             First parameter is the approach's name, the others are
                             specific dependent parameters of the chosen
-                            approach(ii : Iterative improvement,vns: )
+                            approach(ii : Iterative improvement,rii: Randomised Iterative improvement )
 
 
 ## Copyright (C) 2015
