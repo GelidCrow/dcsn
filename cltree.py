@@ -14,6 +14,7 @@ from scipy.sparse.csgraph import depth_first_order
 import random
 from logr import logr
 from utils import check_is_fitted
+import getch
 
 
 ###############################################################################
@@ -28,7 +29,7 @@ def cMI_numba(n_features,
             for v0 in range(2):
                 for v1 in range(2):
                     MI[i, j] = MI[i, j] + np.exp(log_j_probs[i, j, v0, v1]) * (
-                    log_j_probs[i, j, v0, v1] - log_probs[i, v0] - log_probs[j, v1])
+                        log_j_probs[i, j, v0, v1] - log_probs[i, v0] - log_probs[j, v1])
                     MI[j, i] = MI[i, j]
     return MI
 
@@ -164,26 +165,32 @@ class Cltree:
         (log_probs, log_j_probs, log_c_probs) = self.compute_log_probs(X, sample_weight, m_priors, j_priors)
 
         MI = self.cMI(log_probs, log_j_probs)
-        " the tree is represented as a sequence of parents"
+        self.tree = None
+        if self.and_leaves:
+            self.__makeForest(vdata, log_probs, log_c_probs, forest_approach, MI)
+        else:
+            self._Minimum_SPTree_log_probs(vdata, log_probs, log_c_probs, MI)
+
+        self.num_edges = self.n_features - self.num_trees
+
+    def _Minimum_SPTree_log_probs(self, vdata, log_probs, log_c_probs, MI):
+        """ the tree is represented as a sequence of parents"""
         mst = minimum_spanning_tree(-(MI))
         dfs_tree = depth_first_order(mst, directed=False, i_start=0)
-
         self.df_order = dfs_tree[0]
-        self.tree = np.zeros(self.n_features, dtype=np.int)
-        self.tree[0] = -1
-        for p in range(1, self.n_features):
-            self.tree[p] = dfs_tree[1][p]
+        self.tree = self.create_tree(dfs_tree)
 
         # computing the factored represetation
         self.log_factors = np.zeros((self.n_features, 2, 2))
         self.log_factors = compute_log_factors(self.tree, self.n_features, log_probs, log_c_probs, self.log_factors)
-
         self.current_best_validationll = self.score_samples_log_proba(vdata)
 
-        if self.and_leaves:
-            self.__makeForest(vdata, log_probs, log_c_probs, forest_approach)
-
-        self.num_edges = self.n_features - self.num_trees
+    def create_tree(self, dfs_tree):
+        tree = np.zeros(self.n_features, dtype=np.int)
+        tree[0] = -1
+        for p in range(1, self.n_features):
+            tree[p] = dfs_tree[1][p]
+        return tree
 
     def compute_log_probs(self, X, sample_weight, m_priors, j_priors):
         """ WRITEME """
@@ -294,22 +301,147 @@ class Cltree:
 
         return prob.mean()
 
-    def __makeForest(self, vdata, log_probs, log_c_probs, forest_approach):
-        if forest_approach[0] == 'ii':
+    def __makeForest(self, vdata, log_probs, log_c_probs, forest_approach, MI):
+
+        self._Minimum_SPTree_log_probs(vdata, log_probs, log_c_probs, MI)
+
+        if forest_approach[0] == 'grasp':
+            self.__GRASP(forest_approach, vdata, log_probs, log_c_probs, MI)
+
+        elif forest_approach[0] == 'ii':
             self.__iterative_improvement(vdata, log_probs, log_c_probs)
         elif forest_approach[0] == 'rii':
             p = 0.7
             t = 10
             if len(forest_approach) > 1:
                 p = float(forest_approach[1])
-            if len(forest_approach) > 2:
-                t = int(forest_approach[2])
+                if len(forest_approach) > 2:
+                    t = int(forest_approach[2])
             self.__Randomised_Iterative_Improvement(vdata, log_probs, log_c_probs, probability=p, times=t)
 
         if self.num_trees > 1:
             self._forest = True
 
+    def __GRASP(self, forest_approach, vdata, log_probs, log_c_probs, MI):
+        grasp_variant = forest_approach[1]
+        times = 3
+        k = 3 # Best k edges
+        scale_factor = 0.1
+
+        if len(forest_approach) > 2:
+            times = int(forest_approach[2])
+            if len(forest_approach) > 3:
+                param = forest_approach[3]
+                if grasp_variant == 'bk':
+                    k = int(param)
+                elif grasp_variant == 'noise':
+                    scale_factor = float(param)
+
+        """GRASP"""
+        t = 0
+        while t < times:
+            """CONSTRUCT"""
+            initial_tree = None
+            if grasp_variant == 'noise':
+                noised_MI = self.__AddNoise(MI, scale_factor)
+                mst = minimum_spanning_tree(-(noised_MI))
+                dfs_tree = depth_first_order(mst, directed=False, i_start=0)
+                initial_tree = self.create_tree(dfs_tree)
+            elif grasp_variant == 'bk':
+                graph_edges=self.__get_graph_edges(MI)
+                bk_tree=self.__construct_bktree(graph_edges,k)
+
+
+            """End Construct"""
+
+            """ Local Search"""
+            initial_valid_ll = self.score_samples_log_proba_v(vdata, initial_tree, log_probs, log_c_probs)
+            initial_num_tree = 1
+            improved = True
+            while improved:
+                improved = False
+                best_ll = -np.inf
+                best_edge = None
+                valid_edges = np.where(initial_tree != -1)
+                if np.size(valid_edges) > 0:
+                    for i in np.nditer(valid_edges):
+                        new = np.copy(initial_tree)
+                        new[i] = -1
+                        valid_ll = self.score_samples_log_proba_v(vdata, new, log_probs, log_c_probs)
+                        if valid_ll > best_ll:
+                            best_edge = i
+                            best_ll = valid_ll
+                    if best_ll > initial_valid_ll:
+                        initial_valid_ll = best_ll
+                        initial_num_tree += 1
+                        initial_tree[best_edge] = -1
+                        improved = True
+
+            """End local search"""
+
+            if initial_valid_ll > self.current_best_validationll:
+                self.current_best_validationll = initial_valid_ll
+                self.num_trees = initial_num_tree
+                self.tree = initial_tree
+                #Now i can compute the log factors
+                self.log_factors = np.zeros((self.n_features, 2, 2))
+                self.log_factors = compute_log_factors(self.tree, self.n_features, log_probs, log_c_probs,
+                                                               self.log_factors)
+
+            t += 1
+
+    def __construct_bktree(self,grap_edges,k):
+        number_of_edges=self.n_features-1
+        edges_in_tree=0
+        tree=np.zeros(self.n_features,dtype=np.int)
+
+        while edges_in_tree!=number_of_edges:
+            r=np.random.randint(0,k) #Take a random edge from the first k bests
+
+
+
+
+    def __get_graph_edges(self,MI):
+        couples_number = (self.n_features * (self.n_features - 1)) / 2
+        """
+        edge=[Mutual inf, row, column]
+        """
+        edges = np.zeros(shape=[couples_number, 3])
+        index = 0
+        a = 1
+        for i in range(self.n_features):
+            for c in range(a, self.n_features):
+                edges[index] = [MI[i][c], i, c]
+                index += 1
+            a += 1
+        # Sort in decreasing order of MI value
+        graph_edges = edges[edges[:, 0].argsort(kind='heapsort')[::-1]]
+
+        return graph_edges
+
+    def __AddNoise(self, MI, scale_factor):
+        new_MI = np.copy(MI)
+        r = np.random.randn(self.n_features, self.n_features) * scale_factor
+        new_MI += new_MI * r
+
+        return new_MI
+
+    def __GRASP_bk(self, vdata, log_probs, log_c_probs, k, times, MI):
+
+
+        t = 0
+        n_tree_edges = self.n_features - 1
+        while t < times:
+            """Construct phase"""
+            n_edges_in_mst = 0  # Number of edges in minimum spanning tree
+            graph_edges_copy = np.copy(graph_edges)
+
+            while n_edges_in_mst != n_tree_edges:
+                random_edge = np.random.randint(0, k)
+        """TODO"""
+
     def __iterative_improvement(self, vdata, log_probs, log_c_probs):
+
         improved = True
         while improved:
             improved = False
@@ -334,7 +466,7 @@ class Cltree:
                                                            self.log_factors)
                     improved = True
 
-    def __Randomised_Iterative_Improvement(self, vdata, log_probs, log_c_probs, probability=0.7, times=10):
+    def __Randomised_Iterative_Improvement(self, vdata, log_probs, log_c_probs, probability, times):
         t = 0
         valid_edges = np.where(self.tree != -1)
         while t < times and np.size(valid_edges) > 0:
