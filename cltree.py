@@ -14,7 +14,7 @@ from scipy.sparse.csgraph import depth_first_order
 import random
 from logr import logr
 from utils import check_is_fitted
-import getch
+from min_span_tree import minimum_spanning_tree_K
 
 
 ###############################################################################
@@ -348,10 +348,9 @@ class Cltree:
                 dfs_tree = depth_first_order(mst, directed=False, i_start=0)
                 initial_tree = self.create_tree(dfs_tree)
             elif grasp_variant == 'bk':
-                graph_edges=self.__get_graph_edges(MI)
-                bk_tree=self.__construct_bktree(graph_edges,k)
-
-
+                mst=minimum_spanning_tree_K(-(MI),k)#Using modified version of kruskal algorithm
+                dfs_tree=depth_first_order(mst,directed=False,i_start=0)
+                initial_tree=self.create_tree(dfs_tree)
             """End Construct"""
 
             """ Local Search"""
@@ -389,16 +388,6 @@ class Cltree:
                                                                self.log_factors)
 
             t += 1
-
-    def __construct_bktree(self,grap_edges,k):
-        number_of_edges=self.n_features-1
-        edges_in_tree=0
-        tree=np.zeros(self.n_features,dtype=np.int)
-
-        while edges_in_tree!=number_of_edges:
-            r=np.random.randint(0,k) #Take a random edge from the first k bests
-
-
 
 
     def __get_graph_edges(self,MI):
