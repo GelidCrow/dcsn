@@ -6,15 +6,17 @@ IEEE Transactions on Information Theory IT-14 (3): 462-467.
 
 """
 
-import numpy as np
-import numba
-from scipy import sparse
-from scipy.sparse.csgraph import minimum_spanning_tree
-from scipy.sparse.csgraph import depth_first_order
 import random
+
+import numba
+import numpy as np
+from scipy import sparse
+from scipy.sparse.csgraph import depth_first_order
+from scipy.sparse.csgraph import minimum_spanning_tree
+
 from logr import logr
-from utils import check_is_fitted
 from min_span_tree import minimum_spanning_tree_K
+from utils import check_is_fitted
 
 
 ###############################################################################
@@ -104,6 +106,7 @@ def compute_log_factors(tree,
 
 ###############################################################################
 
+
 class Cltree:
     def __init__(self):
         self.num_trees = 1
@@ -145,6 +148,8 @@ class Cltree:
         the others parameters are strictly dependent on the approach chosen.
             -ii => Iterative Improvement
             -rii => Randomised Iterative Improvement
+            -grasp bk => Best k edges construction
+            -grasp noise=> Construct the tree from a noised MI matrix
 
         """
 
@@ -301,6 +306,8 @@ class Cltree:
 
         return prob.mean()
 
+
+
     def __makeForest(self, vdata, log_probs, log_c_probs, forest_approach, MI):
 
         self._Minimum_SPTree_log_probs(vdata, log_probs, log_c_probs, MI)
@@ -310,7 +317,9 @@ class Cltree:
 
         elif forest_approach[0] == 'ii':
             self.__iterative_improvement(vdata, log_probs, log_c_probs)
+
         elif forest_approach[0] == 'rii':
+            
             p = 0.7
             t = 10
             if len(forest_approach) > 1:
@@ -322,7 +331,9 @@ class Cltree:
         if self.num_trees > 1:
             self._forest = True
 
+
     def __GRASP(self, forest_approach, vdata, log_probs, log_c_probs, MI):
+
         grasp_variant = forest_approach[1]
         times = 3
         k = 3  # Best k edges
@@ -340,6 +351,7 @@ class Cltree:
         """GRASP"""
         t = 0
         while t < times:
+
             """CONSTRUCT"""
             initial_tree = None
             if grasp_variant == 'noise':
@@ -378,6 +390,7 @@ class Cltree:
             """End local search"""
 
             if initial_valid_ll > self.current_best_validationll:
+
                 self.current_best_validationll = initial_valid_ll
                 self.num_trees = initial_num_tree
                 self.tree = initial_tree
@@ -388,43 +401,12 @@ class Cltree:
 
             t += 1
 
-    def __get_graph_edges(self, MI):
-        couples_number = (self.n_features * (self.n_features - 1)) / 2
-        """
-        edge=[Mutual inf, row, column]
-        """
-        edges = np.zeros(shape=[couples_number, 3])
-        index = 0
-        a = 1
-        for i in range(self.n_features):
-            for c in range(a, self.n_features):
-                edges[index] = [MI[i][c], i, c]
-                index += 1
-            a += 1
-        # Sort in decreasing order of MI value
-        graph_edges = edges[edges[:, 0].argsort(kind='heapsort')[::-1]]
-
-        return graph_edges
-
     def __AddNoise(self, MI, scale_factor):
         new_MI = np.copy(MI)
         r = np.random.randn(self.n_features, self.n_features) * scale_factor
         new_MI += new_MI * r
 
         return new_MI
-
-    def __GRASP_bk(self, vdata, log_probs, log_c_probs, k, times, MI):
-
-        t = 0
-        n_tree_edges = self.n_features - 1
-        while t < times:
-            """Construct phase"""
-            n_edges_in_mst = 0  # Number of edges in minimum spanning tree
-            graph_edges_copy = np.copy(graph_edges)
-
-            while n_edges_in_mst != n_tree_edges:
-                random_edge = np.random.randint(0, k)
-        """TODO"""
 
     def __iterative_improvement(self, vdata, log_probs, log_c_probs):
 
@@ -451,6 +433,7 @@ class Cltree:
                     self.log_factors = compute_log_factors(self.tree, self.n_features, log_probs, log_c_probs,
                                                            self.log_factors)
                     improved = True
+
 
     def __Randomised_Iterative_Improvement(self, vdata, log_probs, log_c_probs, probability, times):
         t = 0
