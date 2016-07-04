@@ -325,7 +325,7 @@ class Cltree:
     def __GRASP(self, forest_approach, vdata, log_probs, log_c_probs, MI):
         grasp_variant = forest_approach[1]
         times = 3
-        k = 3 # Best k edges
+        k = 3  # Best k edges
         scale_factor = 0.1
 
         if len(forest_approach) > 2:
@@ -345,12 +345,11 @@ class Cltree:
             if grasp_variant == 'noise':
                 noised_MI = self.__AddNoise(MI, scale_factor)
                 mst = minimum_spanning_tree(-(noised_MI))
-                dfs_tree = depth_first_order(mst, directed=False, i_start=0)
-                initial_tree = self.create_tree(dfs_tree)
             elif grasp_variant == 'bk':
-                mst=minimum_spanning_tree_K(-(MI),k)#Using modified version of kruskal algorithm
-                dfs_tree=depth_first_order(mst,directed=False,i_start=0)
-                initial_tree=self.create_tree(dfs_tree)
+                mst = minimum_spanning_tree_K(-(MI), k)  # Using modified version of kruskal algorithm
+
+            dfs_tree = depth_first_order(mst, directed=False, i_start=0)
+            initial_tree = self.create_tree(dfs_tree)
             """End Construct"""
 
             """ Local Search"""
@@ -382,15 +381,14 @@ class Cltree:
                 self.current_best_validationll = initial_valid_ll
                 self.num_trees = initial_num_tree
                 self.tree = initial_tree
-                #Now i can compute the log factors
+                # Now i can compute the log factors
                 self.log_factors = np.zeros((self.n_features, 2, 2))
                 self.log_factors = compute_log_factors(self.tree, self.n_features, log_probs, log_c_probs,
-                                                               self.log_factors)
+                                                       self.log_factors)
 
             t += 1
 
-
-    def __get_graph_edges(self,MI):
+    def __get_graph_edges(self, MI):
         couples_number = (self.n_features * (self.n_features - 1)) / 2
         """
         edge=[Mutual inf, row, column]
@@ -416,7 +414,6 @@ class Cltree:
         return new_MI
 
     def __GRASP_bk(self, vdata, log_probs, log_c_probs, k, times, MI):
-
 
         t = 0
         n_tree_edges = self.n_features - 1
