@@ -15,6 +15,15 @@ do a grid search for k in {5,10,15,20}, a in {0.1,0.2,0.3,0.4}, d in
 bagging approach is used. Furthermore, by specifying the -r option a
 random forest approach may be used.
 
+    python dcsn.py nltcs --al --ap rii 0.75 10 -a 0.5
+Learn a single csn using randomised iterative improvement choosing 10 times the best edge to cut with a probability of 0.75.
+
+    python dcsn.py nltcs --al --ap grasp noise 3 0.5 -a 0.5
+Learn a single csn using grasp and a noised version of the mutual informations and choosing the best version within 3 attempts.
+
+    python dcsn.py nltcs --al --ap grasp bk 5 4 -a 0.5
+Learn a single csn using grasp. While constructing the minimum spanning tree choose a random MI within the best fourths. Do this for 5 times and choose the best performing on the validation set. 
+
     usage: dcsn.py [-h] [--seed [SEED]] [-o [OUTPUT]] [-r] [--sum] [-k K [K ...]]
                [-d D [D ...]] [-s S [S ...]] [-a ALPHA [ALPHA ...]] [--al]
                [--an] [-v [VERBOSE]] [--ap AP [AP ...]]
