@@ -319,7 +319,7 @@ class Cltree:
             self.__iterative_improvement(vdata, log_probs, log_c_probs)
 
         elif forest_approach[0] == 'rii':
-            
+
             p = 0.7
             t = 10
             if len(forest_approach) > 1:
