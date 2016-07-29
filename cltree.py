@@ -403,8 +403,11 @@ class Cltree:
 
     def __AddNoise(self, MI, scale_factor):
         new_MI = np.copy(MI)
-        r = np.random.randn(self.n_features, self.n_features) * scale_factor
-        new_MI += new_MI * r
+        for i in range(self.n_features):
+            for j in range(i,self.n_features):
+                r=np.random.randn()*scale_factor
+                new_MI[i][j]+=new_MI[i][j]*r
+                new_MI[j][i]=new_MI[i][j]
 
         return new_MI
 
