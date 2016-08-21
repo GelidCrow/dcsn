@@ -1,8 +1,6 @@
 import numpy as np
 import random
-import time
 import logging
-import scipy
 import csv
 
 from logr import logr
@@ -140,7 +138,8 @@ class Csnm:
             for x in data:
                 prob = 0.0
                 for k in range(n_c):
-                    prob = prob + np.exp(self.csns[k].score_sample_log_proba(x))*self.weights[k]
+                    t=self.csns[k].score_sample_log_proba(x)
+                    prob += np.exp(t) * self.weights[k]
                 mean = mean + logr(prob)
                 out_log.write('%.10f\n'%logr(prob))
         out_log.close()

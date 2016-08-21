@@ -254,7 +254,6 @@ class Cltree:
         prob = 0.0
         for feature in range(0, self.n_features):
             parent = self.tree[feature]
-            if parent <= -1:
                 prob = prob + self.log_factors[feature, x[feature], 0]
             else:
                 prob = prob + self.log_factors[feature, x[feature], x[parent]]
@@ -337,7 +336,7 @@ class Cltree:
         grasp_variant = forest_approach[1]
         times = 3
         k = 3  # Best k edges
-        variance = 0.1
+        variance = 1
 
         if len(forest_approach) > 2:
             times = int(forest_approach[2])
@@ -347,7 +346,6 @@ class Cltree:
                     k = int(param)
                 elif grasp_variant == 'noise':
                     variance = float(param)
-
         """GRASP"""
         t = 0
         while t < times:
@@ -357,6 +355,7 @@ class Cltree:
             if grasp_variant == 'noise':
                 noised_MI = self.__AddNoise(MI, variance)
                 mst = minimum_spanning_tree(-(noised_MI))
+                noised_MI=None
             elif grasp_variant == 'bk':
                 mst = minimum_spanning_tree_K(-(MI), k)  # Using modified version of kruskal algorithm
 
@@ -402,9 +401,10 @@ class Cltree:
             t += 1
 
     def __AddNoise(self, MI, variance):
-        new_MI = np.maximum(0,np.copy(MI)+ np.sqrt(variance)*np.random.randn(self.n_features,self.n_features))
+        new_MI = np.maximum(0.00001,np.copy(MI)+ variance*np.random.randn(self.n_features,self.n_features))
         triangular_lower_ids=np.tril_indices(new_MI.shape[0])
         new_MI[triangular_lower_ids]=np.triu(new_MI).T[triangular_lower_ids]
+
         return new_MI
 
     def __iterative_improvement(self, vdata, log_probs, log_c_probs):
