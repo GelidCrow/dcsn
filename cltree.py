@@ -309,7 +309,7 @@ class Cltree:
         return prob.mean()
 
     def makeForest(self, vdata, forest_approach):
-        self.current_best_validationll = self.score_samples_log_proba_v(vdata,self.tree)
+        self.current_best_validationll = self.score_samples_log_proba(vdata)
         if forest_approach[0] == 'grasp':
             self.__GRASP(forest_approach, vdata)
 
@@ -415,7 +415,7 @@ class Cltree:
                 for i in np.nditer(valid_edges):
                     new = np.copy(self.tree)
                     new[i] = -1
-                    valid_ll = self.score_samples_log_proba_v(vdata, new, self.log_probs, self.log_c_probs)
+                    valid_ll = self.score_samples_log_proba_v(vdata, new)
                     if valid_ll > best_ll:
                         best_edge = i
                         best_ll = valid_ll
@@ -443,12 +443,12 @@ class Cltree:
                 new = np.copy(self.tree)
                 new[r] = -1
                 edge_to_cut = r
-                n_ll = self.score_samples_log_proba_v(vdata, new, self.log_probs, self.log_c_probs)
+                n_ll = self.score_samples_log_proba_v(vdata, new)
             else:  # best cut , if any
                 for i in np.nditer(valid_edges):
                     n = np.copy(self.tree)
                     n[i] = -1
-                    valid_ll = self.score_samples_log_proba_v(vdata, n, self.log_probs, self.log_c_probs)
+                    valid_ll = self.score_samples_log_proba_v(vdata, n)
                     if valid_ll > n_ll:
                         n_ll = valid_ll
                         edge_to_cut = i
