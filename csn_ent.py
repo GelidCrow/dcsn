@@ -30,6 +30,7 @@ def logr(x):
     else:
         return -1000.0
 
+
 DATA_PATH = "data/"
 
 
@@ -132,7 +133,7 @@ def log_cp_numba(features, log_probs, log_j_probs, log_c_probs):
                 for v0 in range(2):
                     for v1 in range(2):
                         log_c_probs[i, j, v0, v1] = log_j_probs[
-                            i, j, v0, v1] - log_probs[j, v1]
+                                                        i, j, v0, v1] - log_probs[j, v1]
 
     return log_c_probs
 
@@ -157,7 +158,6 @@ def minimum_spanning_tree_np(X):
 
 
 def minimum_spanning_tree_npr(X, n_vertices, spanning_edges, visited_vertices, num_visited, spanning_trees):
-
     if num_visited != n_vertices:
         spanning_trees = []
         minimum_value = X[visited_vertices].min()
@@ -187,7 +187,6 @@ def compute_log_factors(tree,
                         log_probs,
                         log_c_probs,
                         log_factors):
-
     log_factors[0, 0, 0] = log_probs[0, 0]
     log_factors[0, 0, 1] = log_probs[0, 0]
     log_factors[0, 1, 0] = log_probs[0, 1]
@@ -204,7 +203,6 @@ def compute_log_factors(tree,
 
 
 class cltree:
-
     """
 
     Parameters
@@ -222,9 +220,9 @@ class cltree:
     def log_p_jp(self, data, features, instances):
         log_probs = np.zeros((features, 2))
         log_j_probs = np.zeros((features, features, 2, 2))
-#        cond = np.dot(data.T.astype(np.int), data.astype(np.int))
-# cond0 =
-# sparse.csr_matrix(data.T.astype(np.int)).dot(sparse.csr_matrix(data.astype(np.int)))
+        #        cond = np.dot(data.T.astype(np.int), data.astype(np.int))
+        # cond0 =
+        # sparse.csr_matrix(data.T.astype(np.int)).dot(sparse.csr_matrix(data.astype(np.int)))
         sparse_cond = sparse.csr_matrix(data)
         cond0 = sparse_cond.T.dot(sparse_cond)
         cond = np.array(cond0.todense())
@@ -285,26 +283,26 @@ class cltree:
         mst = None
         dfs_tree = None
 
-#     def loglik(self, data):
-#         #        Prob = self.log_probs[0,data[:,0].astype(np.int)]
-#         Prob = self.log_probs[0, data[:, 0]]
-#         for feature in range(1, self.n_features):
-#             parent = self.tree[feature]
-# # Prob = Prob + self.log_c_probs[feature, parent,
-# # data[:,feature].astype(np.int), data[:,parent].astype(np.int)]
-#             Prob = Prob + \
-#                 self.log_c_probs[
-#                     feature, parent, data[:, feature], data[:, parent]]
-#         m = Prob.mean()
-#         return m
+    #     def loglik(self, data):
+    #         #        Prob = self.log_probs[0,data[:,0].astype(np.int)]
+    #         Prob = self.log_probs[0, data[:, 0]]
+    #         for feature in range(1, self.n_features):
+    #             parent = self.tree[feature]
+    # # Prob = Prob + self.log_c_probs[feature, parent,
+    # # data[:,feature].astype(np.int), data[:,parent].astype(np.int)]
+    #             Prob = Prob + \
+    #                 self.log_c_probs[
+    #                     feature, parent, data[:, feature], data[:, parent]]
+    #         m = Prob.mean()
+    #         return m
 
-#     def ll_instance_from_csn(self, x):
-#         prob = self.log_probs[0, x[0]]
-#         for feature in range(1, self.n_features):
-#             parent = self.tree[feature]
-#             prob = prob + \
-#                 self.log_c_probs[feature, parent, x[feature], x[parent]]
-#         return prob
+    #     def ll_instance_from_csn(self, x):
+    #         prob = self.log_probs[0, x[0]]
+    #         for feature in range(1, self.n_features):
+    #             parent = self.tree[feature]
+    #             prob = prob + \
+    #                 self.log_c_probs[feature, parent, x[feature], x[parent]]
+    #         return prob
     def log_factors(self):
 
         return compute_log_factors(self.tree,
@@ -318,7 +316,7 @@ class cltree:
         for feature in range(1, self.n_features):
             parent = self.tree[feature]
             Prob = Prob + \
-                self.factors[feature, data[:, feature], data[:, parent]]
+                   self.factors[feature, data[:, feature], data[:, parent]]
         m = Prob.mean()
         return m
 
@@ -335,7 +333,6 @@ class cltree:
 
 
 class csn_entropy:
-
     """
 
     Parameters
@@ -438,9 +435,9 @@ class csn_entropy:
 
         if self.root_feature is not None:
             self.cut_nodes = 1 + self.left_child.cut_nodes + \
-                self.right_child.cut_nodes
+                             self.right_child.cut_nodes
             self.leaf_nodes = self.left_child.leaf_nodes + \
-                self.right_child.leaf_nodes
+                              self.right_child.leaf_nodes
         else:
             self.leaf_nodes = 1
 
@@ -457,10 +454,10 @@ class csn_entropy:
         print("Leaf nodes:", self.leaf_nodes)
 
     def showl(self, level):
-        print (''.ljust(level), end="")
-        print ("id: ", self.id, end=" ")
+        print(''.ljust(level), end="")
+        print("id: ", self.id, end=" ")
         if self.root_feature is not None:
-            print ("split on", end=" ")
+            print("split on", end=" ")
             # print self.cltree.features[self.root_feature],
             self.features[self.root_feature]
             print(self.left_weight, end=" ")
@@ -483,10 +480,10 @@ class csn_entropy:
                 (x[0:self.root_feature], x[self.root_feature + 1:]))
             if x[self.root_feature] == 0:
                 prob = prob + logr(self.left_weight) + \
-                    self.left_child.instance_ll(x1)
+                       self.left_child.instance_ll(x1)
             else:
                 prob = prob + logr(self.right_weight) + \
-                    self.right_child.instance_ll(x1)
+                       self.right_child.instance_ll(x1)
         return prob
 
     def ll(self, data):
@@ -497,7 +494,7 @@ class csn_entropy:
         return mean / data.shape[0]
 
     def cut(self):
-        print (" > trying to cut ...", end=" ")
+        print(" > trying to cut ...", end=" ")
         found = False
 
         # bestlik = top_ll
@@ -545,7 +542,6 @@ class csn_entropy:
             # avoiding partitions with zero instances
             # TODO: check whether to have cut with single child
             if left_data.shape[0] > 0 and right_data.shape[0] > 0:
-
                 # left_features_name = \
 
                 # right_features_name = \
@@ -592,22 +588,22 @@ class csn_entropy:
                 best_left_avg_entropy = left_avg_entropy
                 best_right_avg_entropy = right_avg_entropy
 
-            # if ll > bestlik:
-            #     bestlik = ll
-            #     best_clt_l = CL_l
-            #     best_clt_r = CL_r
-            #     best_feature_cut = feature
-            #     best_left_weight = left_weight
-            #     best_right_weight = right_weight
-            #     best_right_data = right_data
-            #     best_left_data = left_data
-            #     best_l_ll = l_ll
-            #     best_r_ll = r_ll
-            #     found = True
-            # best_list.append((bestlik, best_clt_l, best_clt_r,
-            # best_feature_cut, best_left_weight,
-            # best_right_weight, best_right_data, best_left_data, best_l_ll,
-            # best_r_ll))
+                # if ll > bestlik:
+                #     bestlik = ll
+                #     best_clt_l = CL_l
+                #     best_clt_r = CL_r
+                #     best_feature_cut = feature
+                #     best_left_weight = left_weight
+                #     best_right_weight = right_weight
+                #     best_right_data = right_data
+                #     best_left_data = left_data
+                #     best_l_ll = l_ll
+                #     best_r_ll = r_ll
+                #     found = True
+                # best_list.append((bestlik, best_clt_l, best_clt_r,
+                # best_feature_cut, best_left_weight,
+                # best_right_weight, best_right_data, best_left_data, best_l_ll,
+                # best_r_ll))
 
         if found:
             # best_list.sort(key=lambda bestll: bestll[0])
@@ -617,12 +613,12 @@ class csn_entropy:
             # best_right_data, best_left_data, best_l_ll,
             # best_r_ll)=best_list[choosen]
 
-            features_name =\
+            features_name = \
                 self.features[0:best_feature_cut] + \
                 self.features[best_feature_cut + 1:]
 
             self.root_feature = best_feature_cut
-            print ("cutting on feature ", self.root_feature)
+            print("cutting on feature ", self.root_feature)
 
             self.left_child = csn_entropy(best_left_data, self.id * 2,
                                           # best_clt_l, best_l_ll,
@@ -647,7 +643,7 @@ class csn_entropy:
             self.left_weight = best_left_weight
             self.right_weight = best_right_weight
         else:
-            print (">>>> no cutting, putting a CL tree")
+            print(">>>> no cutting, putting a CL tree")
             # check the iid factorization
             # self.check_independence()
 
@@ -661,14 +657,14 @@ class csn_entropy:
         Prune on valid data checking the ll
         """
 
-        print ('Checking node', self.id, '(on feature)', self.root_feature)
+        print('Checking node', self.id, '(on feature)', self.root_feature)
 
         DEFAULT_VALID_LL = -1000
         #
         # if it is a leaf return
         if self.root_feature is None:
 
-            print ('it is a leaf', valid.shape[0], valid.shape[1])
+            print('it is a leaf', valid.shape[0], valid.shape[1])
 
             # self.leaf_nodes = 1
             # self.cut_nodes = 0
@@ -682,7 +678,7 @@ class csn_entropy:
                 # print ('defaulting')
                 return DEFAULT_VALID_LL
         else:
-            print ('it is not a leaf, checking children')
+            print('it is not a leaf, checking children')
             #
             # calling it on the childrens on splitted version of the valid
             condition = valid[:, self.root_feature] == 0
@@ -702,7 +698,6 @@ class csn_entropy:
             curr_cl_tree = cltree(data=self.data, alpha=self.alpha)
 
             if valid.shape[0] > 0:
-
                 #
                 # I evaluate it on the validation set
                 no_split_ll = curr_cl_tree.ll(valid)
@@ -710,9 +705,9 @@ class csn_entropy:
                 # check if it is worth it splitting
                 # left_valid_ll = self.left_child.cltree.loglik(valid_left)
                 # right_valid_ll = self.right_child.cltree.loglik(valid_right)
-            #    split_ll = DEFAULT_VALID_LL
+                #    split_ll = DEFAULT_VALID_LL
 
-            # if valid.shape[0] > 0:
+                # if valid.shape[0] > 0:
                 # if valid_left.shape[0] > 0 and valid_right.shape[0] > 0:
                 # print('x', valid_left.shape[0], valid_right.shape[0])
                 split_ll = (((left_pruned_ll +
@@ -724,7 +719,7 @@ class csn_entropy:
             #
             # any improvement?
             if no_split_ll < split_ll:
-                print ('leaving it as it is', no_split_ll, split_ll)
+                print('leaving it as it is', no_split_ll, split_ll)
 
                 self.leaf_nodes = (self.left_child.leaf_nodes +
                                    self.right_child.leaf_nodes)
@@ -733,7 +728,7 @@ class csn_entropy:
                 # print('prune', prun_dict['prune'])
                 return split_ll
             else:
-                print ('pruning ', no_split_ll, split_ll)
+                print('pruning ', no_split_ll, split_ll)
                 # prun_dict['prune'] += (1 + self.left_child.cut_nodes +
                 #                        self.right_child.cut_nodes)
                 # print('prune', prun_dict['prune'], self.cut_nodes)
@@ -754,7 +749,6 @@ class csn_entropy:
 
 
 class csnm_entropy:
-
     """
 
     Parameters
@@ -832,7 +826,7 @@ class csnm_entropy:
             self.csns[i] = C
 
             self.lls[i] = self.csns[i].ll(self.training_data)
-            print ("Cut nodes: ", self.csns[i].cut_nodes)
+            print("Cut nodes: ", self.csns[i].cut_nodes)
 
     def compute_weights(self, n_c):
         sum_ll = 0.0
@@ -840,7 +834,7 @@ class csnm_entropy:
             sum_ll += self.lls[i]
         for i in range(n_c):
             self.weights[i] = self.lls[i] / sum_ll
-        print (self.weights)
+        print(self.weights)
 
     def ll(self, data, n_c, out_filename):
         with open(out_filename, 'w') as out_log:
@@ -850,7 +844,7 @@ class csnm_entropy:
                 prob = 0.0
                 for k in range(n_c):
                     prob = prob + \
-                        np.exp(self.csns[k].instance_ll(x)) * self.weights[k]
+                           np.exp(self.csns[k].instance_ll(x)) * self.weights[k]
                 mean = mean + logr(prob)
                 out_log.write('%.10f\n' % logr(prob))
         out_log.close()

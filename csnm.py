@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 ###############################################################################
 DATA_PATH = 'data/'
 
+
 def csv_2_numpy(file, path=DATA_PATH, sep=',', type='int'):
     """
     WRITEME
@@ -24,10 +25,9 @@ def csv_2_numpy(file, path=DATA_PATH, sep=',', type='int'):
 
 
 class Csnm:
-    
-    def __init__(self, training_data,validation_data, sample_weight = None, max_components=1,
-                 p=1.0, min_instances=5, min_features=3, alpha=1.0, random_forest=False, 
-                 and_leaves=False, and_inners=False, sum_nodes=False,forest_approach=None):
+    def __init__(self, training_data, validation_data, sample_weight=None, max_components=1,
+                 p=1.0, min_instances=5, min_features=3, alpha=1.0, random_forest=False,
+                 and_leaves=False, and_inners=False, sum_nodes=False, forest_approach=None):
 
         self.max_components = max_components
         self.training_data = training_data
@@ -40,21 +40,19 @@ class Csnm:
             self.and_nodes = True
 
         self.sum_nodes = sum_nodes
-        self.alpha = int(self.training_data.shape[0]*alpha/100)
-        logger.info("Setting alpha to %d",self.alpha)
+        self.alpha = int(self.training_data.shape[0] * alpha / 100)
+        logger.info("Setting alpha to %d", self.alpha)
 
         self.p = p
         self.random_forest = random_forest
-        
-        self.sample_weight = sample_weight
 
+        self.sample_weight = sample_weight
 
         self.bags = [None] * self.max_components
         self.bags_weight = [None] * self.max_components
         self.csns = [None] * self.max_components
-        self.weights = [1/self.max_components] * self.max_components
+        self.weights = [1 / self.max_components] * self.max_components
         self.lls = [0.0] * self.max_components
-
 
         self.or_nodes = [0.0] * self.max_components
         self.n_sum_nodes = [0.0] * self.max_components
@@ -66,9 +64,10 @@ class Csnm:
         self.clforests = [0.0] * self.max_components
         self.depth = [0.0] * self.max_components
         self.mdepth = [0.0] * self.max_components
-        self.approach=forest_approach
+        self.approach = forest_approach
         self.create_bags()
-#        print("Correctness:",self.check_correctness())
+
+    #        print("Correctness:",self.check_correctness())
 
     def create_bags(self):
         if self.max_components == 1:
@@ -86,32 +85,30 @@ class Csnm:
         else:
             bag_weight = np.zeros(n_instances)
         for i in range(n_instances):
-            choice = random.randint(0, self.training_data.shape[0]-1)
+            choice = random.randint(0, self.training_data.shape[0] - 1)
             bag[i] = self.training_data[choice]
             if self.sample_weight is not None:
                 bag_weight[i] = self.sample_weight[choice]
         return bag, bag_weight
 
-    
     def fit(self):
         for i in range(self.max_components):
-
             CSN.Csn.init_stats()
             print('Cutset net number : ' + str(i))
             self.csns[i] = CSN.Csn(data=self.bags[i],
                                    vdata=self.validation_data,
-                                   sample_weight = self.bags_weight[i],
-                                   n_original_samples = self.bags[i].shape[0],
-                                   min_instances=self.min_instances, min_features=self.min_features, alpha=self.alpha, 
+                                   sample_weight=self.bags_weight[i],
+                                   n_original_samples=self.bags[i].shape[0],
+                                   min_instances=self.min_instances, min_features=self.min_features, alpha=self.alpha,
                                    random_forest=self.random_forest,
                                    and_leaves=self.and_leaves, and_inners=self.and_inners,
-                                   depth = 1, sum_nodes=self.sum_nodes,
+                                   depth=1, sum_nodes=self.sum_nodes,
                                    forest_approach=self.approach)
 
             self.csns[i].show()
             self.lls[i] = self.csns[i].score_samples_log_proba(self.training_data)
-            self.or_nodes[i] = CSN.Csn._or_nodes 
-            self.n_sum_nodes[i] = CSN.Csn._sum_nodes 
+            self.or_nodes[i] = CSN.Csn._or_nodes
+            self.n_sum_nodes[i] = CSN.Csn._sum_nodes
             self.leaf_nodes[i] = CSN.Csn._leaf_nodes
             self.or_edges[i] = CSN.Csn._or_edges
             self.clt_edges[i] = CSN.Csn._clt_edges
@@ -121,9 +118,8 @@ class Csnm:
             self.depth[i] = CSN.Csn._depth
             self.mdepth[i] = CSN.Csn._mean_depth / CSN.Csn._leaf_nodes
 
-#            print("Correct:", self.csns[i].check_correctness(self.bags[i].shape[1]))
+        #            print("Correct:", self.csns[i].check_correctness(self.bags[i].shape[1]))
 
-        
     def compute_weights(self, n_c):
         sum_ll = 0.0
         for i in range(n_c):
@@ -138,21 +134,19 @@ class Csnm:
             for x in data:
                 prob = 0.0
                 for k in range(n_c):
-                    t=self.csns[k].score_sample_log_proba(x)
+                    t = self.csns[k].score_sample_log_proba(x)
                     prob += np.exp(t) * self.weights[k]
                 mean = mean + logr(prob)
-                out_log.write('%.10f\n'%logr(prob))
+                out_log.write('%.10f\n' % logr(prob))
         out_log.close()
         return mean / data.shape[0]
 
-
     def check_correctness(self):
         mean = 0.0
-        for world in itertools.product([0,1], repeat=self.training_data.cols):
+        for world in itertools.product([0, 1], repeat=self.training_data.cols):
             prob = 0.0
             for k in range(self.max_components):
                 prob = prob + np.exp(self.csns[k]._score_sample_log_proba(world))
             prob = prob / self.max_components
             mean = mean + prob
-        return mean 
-
+        return mean

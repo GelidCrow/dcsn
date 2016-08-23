@@ -1,6 +1,7 @@
 import numba
 import numpy as np
 
+
 @numba.njit
 def logr(x):
     if x > 0.0:

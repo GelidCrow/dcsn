@@ -6,6 +6,7 @@ try:
     from time import perf_counter
 except:
     from time import time
+
     perf_counter = time
 
 import numpy
@@ -46,6 +47,7 @@ def stats_format(stats_list, separator, digits=5):
     # concatenation
     return separator.join(formatted)
 
+
 #########################################
 # creating the opt parser
 parser = argparse.ArgumentParser()
@@ -62,7 +64,6 @@ parser.add_argument('-o', '--output', type=str, nargs='?',
 
 parser.add_argument('-r', '--random', action='store_true', default=False,
                     help='Random Forest')
-
 
 parser.add_argument('-p', '--perc', type=float, nargs='+',
                     default=[1.0],
@@ -108,7 +109,6 @@ n_components = args.n_components
 rf = args.random
 m_instances = args.min_instances
 
-
 # initing the random generators
 seed = args.seed
 numpy_rand_gen = numpy.random.RandomState(seed)
@@ -146,7 +146,6 @@ preamble = ("""comp:\talpha:\tminst:\tc_nodes:""" +
 max_components = max(n_components)
 
 with open(out_log_path, 'w') as out_log:
-
     out_log.write("parameters:\n{0}\n\n".format(args))
     out_log.write(preamble)
     out_log.flush()

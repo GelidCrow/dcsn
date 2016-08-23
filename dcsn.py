@@ -9,6 +9,7 @@ try:
     from time import perf_counter
 except:
     from time import time
+
     perf_counter = time
 
 import numpy
@@ -19,6 +20,7 @@ import random
 
 DATA_PATH = 'data/'
 
+
 def load_train_val_test_csvs(dataset,
                              path=DATA_PATH,
                              sep=',',
@@ -26,7 +28,6 @@ def load_train_val_test_csvs(dataset,
                              suffixes=['.ts.data',
                                        '.valid.data',
                                        '.test.data']):
-
     csv_files = [dataset + ext for ext in suffixes]
     return [csv_2_numpy(file, path, sep, type) for file in csv_files]
 
@@ -43,6 +44,7 @@ def stats_format(stats_list, separator, digits=5):
             formatted.append(stat)
     # concatenation
     return separator.join(formatted)
+
 
 #########################################
 # creating the opt parser
@@ -89,16 +91,17 @@ parser.add_argument('--an', action='store_true', default=False,
 parser.add_argument('-v', '--verbose', type=int, nargs='?',
                     default=1,
                     help='Verbosity level')
-parser.add_argument('--ap',nargs='+',help='Specify the approach to be used to create the forest. First parameter is the'
-                                          ' approach\'s name, the others are specific dependent parameters of the'
-                                          ' chosen approach(ii : Iterative improvement,rii:Randomised Iterative Improvement,grasp bk: best k edges; grasp noise: Noise the MI matrix )',
+parser.add_argument('--ap', nargs='+',
+                    help='Specify the approach to be used to create the forest. First parameter is the'
+                         ' approach\'s name, the others are specific dependent parameters of the'
+                         ' chosen approach(ii : Iterative improvement,rii:Randomised Iterative Improvement,grasp bk: best k edges; grasp noise: Noise the MI matrix )',
                     default=['ii']
                     )
 #
 # parsing the args
 
 
-args=parser.parse_args()
+args = parser.parse_args()
 #
 # setting verbosity level
 if args.verbose == 1:
@@ -121,8 +124,7 @@ and_leaf = args.al
 and_node = args.an
 
 sum_nodes = args.sum
-ap=args.ap
-
+ap = args.ap
 
 #
 # elaborating the dataset
@@ -149,15 +151,15 @@ if not os.path.exists(os.path.dirname(out_log_path)):
 best_valid_avg_ll = -np.inf
 best_state = {}
 
-preamble = ("""components,alpha,minst,mfeat,or_nodes,sum_nodes,and_nodes,leaf_nodes,or_edges,clt_edges,cltrees,clforests,depth,mdepth,time,""" +
-            """train_ll,valid_ll,test_ll\n""")
+preamble = (
+"""components,alpha,minst,mfeat,or_nodes,sum_nodes,and_nodes,leaf_nodes,or_edges,clt_edges,cltrees,clforests,depth,mdepth,time,""" +
+"""train_ll,valid_ll,test_ll\n""")
 
 max_components = max(n_components)
 
 np.random.seed(1)
 
 with open(out_log_path, 'w') as out_log:
-
     out_log.write("parameters:\n{0}\n\n".format(args))
     out_log.write(preamble)
     out_log.flush()
@@ -186,14 +188,14 @@ with open(out_log_path, 'w') as out_log:
                 _sample_weight = None
 
                 learn_start_t = perf_counter()
-                C = Csnm(max_components=max_components, 
-                         training_data=train, 
-                         sample_weight = _sample_weight,
-                         min_instances=min_instances, 
-                         min_features=min_features, 
+                C = Csnm(max_components=max_components,
+                         training_data=train,
+                         sample_weight=_sample_weight,
+                         min_instances=min_instances,
+                         min_features=min_features,
                          alpha=alpha, random_forest=rf,
-                         and_leaves = and_leaf,
-                         and_inners = and_node,sum_nodes = sum_nodes,
+                         and_leaves=and_leaf,
+                         and_inners=and_node, sum_nodes=sum_nodes,
                          validation_data=valid,
                          forest_approach=ap)
 
@@ -203,30 +205,29 @@ with open(out_log_path, 'w') as out_log:
 
                 learning_time = (learn_end_t - learn_start_t)
 
-
                 #
                 # gathering statistics
-    #            n_nodes = csn.n_nodes()
-    #            n_levels = csn.n_levels()
-    #            n_leaves = csn.n_leaves()
+                #            n_nodes = csn.n_nodes()
+                #            n_levels = csn.n_levels()
+                #            n_leaves = csn.n_leaves()
 
                 for c in n_components:
                     #
                     # Compute LL on training set
 
-                    out_filename = out_path + '/c' + str(c) +'train.lls'
+                    out_filename = out_path + '/c' + str(c) + 'train.lls'
                     logging.info('Evaluating on training set')
                     train_avg_ll = C.score_samples(train, c, out_filename)
 
                     #
                     # Compute LL on validation set
-                    out_filename = out_path + '/c' + str(c) +'valid.lls'
+                    out_filename = out_path + '/c' + str(c) + 'valid.lls'
                     logging.info('Evaluating on validation set')
                     valid_avg_ll = C.score_samples(valid, c, out_filename)
 
                     #
                     # Compute LL on test set
-                    out_filename = out_path + '/c' + str(c) +'test.lls'
+                    out_filename = out_path + '/c' + str(c) + 'test.lls'
                     logging.info('Evaluating on test set')
                     test_avg_ll = C.score_samples(test, c, out_filename)
 
@@ -241,25 +242,23 @@ with open(out_log_path, 'w') as out_log:
                         best_state['train_ll'] = train_avg_ll
                         best_state['valid_ll'] = valid_avg_ll
                         best_state['test_ll'] = test_avg_ll
-                        shutil.copy2(out_path + '/c' + str(c) +'train.lls',out_path+'/besttrain.lls')
-                        shutil.copy2(out_path + '/c' + str(c) +'test.lls',out_path+'/besttest.lls')
-                        shutil.copy2(out_path + '/c' + str(c) +'valid.lls',out_path+'/bestvalid.lls')
-                    os.remove(out_path + '/c' + str(c) +'train.lls')
-                    os.remove(out_path + '/c' + str(c) +'test.lls')
-                    os.remove(out_path + '/c' + str(c) +'valid.lls')
+                        shutil.copy2(out_path + '/c' + str(c) + 'train.lls', out_path + '/besttrain.lls')
+                        shutil.copy2(out_path + '/c' + str(c) + 'test.lls', out_path + '/besttest.lls')
+                        shutil.copy2(out_path + '/c' + str(c) + 'valid.lls', out_path + '/bestvalid.lls')
+                    os.remove(out_path + '/c' + str(c) + 'train.lls')
+                    os.remove(out_path + '/c' + str(c) + 'test.lls')
+                    os.remove(out_path + '/c' + str(c) + 'valid.lls')
 
-                    or_nodes = sum(C.or_nodes[:c])/c
-                    n_sum_nodes = sum(C.n_sum_nodes[:c])/c
-                    and_nodes = sum(C.and_nodes[:c])/c
-                    leaf_nodes = sum(C.leaf_nodes[:c])/c
-                    or_edges = sum(C.or_edges[:c])/c
-                    clt_edges = sum(C.clt_edges[:c])/c
-                    cltrees = sum(C.cltrees[:c])/c
-                    clforests = sum(C.clforests[:c])/c
-                    depth = sum(C.depth[:c])/c
-                    mdepth = sum(C.mdepth[:c])/c
-
-
+                    or_nodes = sum(C.or_nodes[:c]) / c
+                    n_sum_nodes = sum(C.n_sum_nodes[:c]) / c
+                    and_nodes = sum(C.and_nodes[:c]) / c
+                    leaf_nodes = sum(C.leaf_nodes[:c]) / c
+                    or_edges = sum(C.or_edges[:c]) / c
+                    clt_edges = sum(C.clt_edges[:c]) / c
+                    cltrees = sum(C.cltrees[:c]) / c
+                    clforests = sum(C.clforests[:c]) / c
+                    depth = sum(C.depth[:c]) / c
+                    mdepth = sum(C.mdepth[:c]) / c
 
                     #
                     # writing to file a line for the grid

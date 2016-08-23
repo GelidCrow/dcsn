@@ -6,13 +6,15 @@ from scipy.sparse.csgraph._validation import validate_graph
 """
 A modified version of the minimum spanning tree algorithm implemented in SciPy
 """
-def min_spanning_tree_K( data,
-                             col_indices,
-                              indptr,
-                              i_sort,
-                              row_indices,
-                              predecessors,
-                              rank,k) :
+
+
+def min_spanning_tree_K(data,
+                        col_indices,
+                        indptr,
+                        i_sort,
+                        row_indices,
+                        predecessors,
+                        rank, k):
     # Work-horse routine for computing minimum spanning tree using
     #  Kruskal's algorithm.  By separating this code here, we get more
     #  efficient indexing.
@@ -30,18 +32,18 @@ def min_spanning_tree_K( data,
     #  V1 and V2 are connected vertices.
     n_edges_in_mst = 0
     i = 0
-    copy=np.copy(i_sort)
+    copy = np.copy(i_sort)
 
-    while i<n_data and n_edges_in_mst < n_verts - 1:
-        #print(str(n_edges_in_mst)+' ',end="")
-        if np.size(copy)>k:
-            r=np.random.randint(0,k)
+    while i < n_data and n_edges_in_mst < n_verts - 1:
+        # print(str(n_edges_in_mst)+' ',end="")
+        if np.size(copy) > k:
+            r = np.random.randint(0, k)
         else:
-            r=np.random.randint(0,np.size(copy))
+            r = np.random.randint(0, np.size(copy))
 
-        j=copy[r]
-        #print(str(i_sort[i]) + '  '+str(j))
-        #j=i_sort[i]
+        j = copy[r]
+        # print(str(i_sort[i]) + '  '+str(j))
+        # j=i_sort[i]
         V1 = row_indices[j]
         V2 = col_indices[j]
 
@@ -75,23 +77,23 @@ def min_spanning_tree_K( data,
                 predecessors[R2] = R1
                 rank[R1] += 1
         else:
-            data[j]=0
+            data[j] = 0
 
-        copy=np.delete(copy,r)
-
+        copy = np.delete(copy, r)
 
         i += 1
 
     # We may have stopped early if we found a full-sized MST so zero out the rest
-    if i<n_data:
+    if i < n_data:
         for i in range(np.size(copy)):
-            data[copy[i]]=0
+            data[copy[i]] = 0
     """while i < n_data:
         j = i_sort[i]
         data[j] = 0
         i += 1"""
 
-def minimum_spanning_tree_K(csgraph,k=1, overwrite=False):
+
+def minimum_spanning_tree_K(csgraph, k=1, overwrite=False):
     csgraph = validate_graph(csgraph, True, np.float64, dense_output=False,
                              copy_if_sparse=not overwrite)
     N = csgraph.shape[0]
@@ -107,12 +109,13 @@ def minimum_spanning_tree_K(csgraph,k=1, overwrite=False):
     row_indices = np.zeros(len(data), dtype=np.int32)
 
     min_spanning_tree_K(data, indices, indptr, i_sort,
-                       row_indices, predecessors, rank,k)
+                        row_indices, predecessors, rank, k)
 
     sp_tree = csr_matrix((data, indices, indptr), (N, N))
     sp_tree.eliminate_zeros()
 
     return sp_tree
+
 
 """X = csr_matrix([[0, 8, 0, 3],
                 [0, 0, 2, 5],
@@ -132,5 +135,3 @@ for p in range(1,4):
     tree[p] = dfs_tree[1][p]
 
 print(tree)"""
-
-
