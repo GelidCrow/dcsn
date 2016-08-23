@@ -173,9 +173,6 @@ class Cltree:
 
         self.MI = self.cMI(log_probs, log_j_probs)
         self.tree = None
-        """if self.and_leaves and self.optimize==True:
-            self.__makeForest(vdata, log_probs, log_c_probs, forest_approach, MI)
-        else:"""
         self._Minimum_SPTree_log_probs(vdata, log_probs, log_c_probs)
 
         self.num_edges = self.n_features - self.num_trees
@@ -190,7 +187,7 @@ class Cltree:
         # computing the factored representation
         self.log_factors = np.zeros((self.n_features, 2, 2))
         self.log_factors = compute_log_factors(self.tree, self.n_features, log_probs, log_c_probs, self.log_factors)
-
+        self.current_best_validationll = self.score_samples_log_proba(vdata)
 
     def create_tree(self, dfs_tree):
         tree = np.zeros(self.n_features, dtype=np.int)
@@ -328,6 +325,7 @@ class Cltree:
 
         if self.num_trees > 1:
             self._forest = True
+        self.num_edges = self.n_features - self.num_trees
 
     def __GRASP(self, forest_approach, vdata):
 
