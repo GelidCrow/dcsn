@@ -696,6 +696,7 @@ class Csn:
 
         else:
             # Make a forest
+            if self.and_leaves:
                 self.node.cltree.makeForest(vdata=self.vdata, forest_approach=self.forest_approach)
             # print(" no cutting")
             """if self.node.cltree.is_forest():
