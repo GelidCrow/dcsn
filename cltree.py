@@ -174,6 +174,8 @@ class Cltree:
         self.MI = self.cMI(log_probs, log_j_probs)
         self.tree = None
         self._Minimum_SPTree_log_probs(vdata, log_probs, log_c_probs)
+        """if np.random.rand()>0.7:
+            self.makeForest(vdata,['ii'])"""
 
         self.num_edges = self.n_features - self.num_trees
 
