@@ -172,10 +172,11 @@ class Cltree:
         self.log_c_probs = log_c_probs
 
         self.MI = self.cMI(log_probs, log_j_probs)
+
+
         self.tree = None
         self._Minimum_SPTree_log_probs(vdata, log_probs, log_c_probs)
-        """if np.random.rand()>0.7:
-            self.makeForest(vdata,['ii'])"""
+        
 
         self.num_edges = self.n_features - self.num_trees
 
@@ -424,6 +425,7 @@ class Cltree:
                     self.current_best_validationll = best_ll
                     self.num_trees += 1
                     self.tree[best_edge] = -1
+                    
                     self.log_factors = np.zeros((self.n_features, 2, 2))
                     self.log_factors = compute_log_factors(self.tree, self.n_features, self.log_probs, self.log_c_probs,
                                                            self.log_factors)

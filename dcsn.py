@@ -94,8 +94,7 @@ parser.add_argument('-v', '--verbose', type=int, nargs='?',
 parser.add_argument('--ap', nargs='+',
                     help='Specify the approach to be used to create the forest. First parameter is the'
                          ' approach\'s name, the others are specific dependent parameters of the'
-                         ' chosen approach(ii : Iterative improvement,rii:Randomised Iterative Improvement,grasp bk: best k edges; grasp noise: Noise the MI matrix )',
-                    default=['ii']
+                         ' chosen approach(ii : Iterative improvement,rii:Randomised Iterative Improvement,grasp bk: best k edges; grasp noise: Noise the MI matrix )'
                     )
 #
 # parsing the args
