@@ -172,11 +172,11 @@ class Cltree:
         self.log_c_probs = log_c_probs
 
         self.MI = self.cMI(log_probs, log_j_probs)
-
+        #self.MI =self.__AddNoise(2)
 
         self.tree = None
         self._Minimum_SPTree_log_probs(vdata, log_probs, log_c_probs)
-        
+
 
         self.num_edges = self.n_features - self.num_trees
 
