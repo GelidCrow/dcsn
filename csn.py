@@ -51,7 +51,7 @@ class Csn:
                  alpha=1.0, d=None, n_original_samples=None,
                  random_forest=False, m_priors=None, j_priors=None,
                  and_leaves=False, and_inners=False, min_gain=None, depth=1,
-                 sample_weight=None, sum_nodes=False, forest_approach=None):
+                 sample_weight=None, sum_nodes=False, forest_approach=None, noise=None):
 
         self.min_instances = min_instances
         self.min_features = min_features
@@ -64,6 +64,7 @@ class Csn:
         self.sample_weight = sample_weight
         self.sum_nodes = sum_nodes
         self.vdata = vdata
+        self.noise = noise
         self.forest_approach = forest_approach
         if n_original_samples is None:
             self.n_original_samples = self.data.shape[0]
@@ -102,13 +103,13 @@ class Csn:
 
                         # Laplace
                         self.j_priors[i, j, 1, 1] = (self.j_priors[i, j, 1, 1] + self.lprior / 4) / (
-                        self.data.shape[0] + self.lprior)
+                            self.data.shape[0] + self.lprior)
                         self.j_priors[i, j, 0, 1] = (self.j_priors[i, j, 0, 1] + self.lprior / 4) / (
-                        self.data.shape[0] + self.lprior)
+                            self.data.shape[0] + self.lprior)
                         self.j_priors[i, j, 1, 0] = (self.j_priors[i, j, 1, 0] + self.lprior / 4) / (
-                        self.data.shape[0] + self.lprior)
+                            self.data.shape[0] + self.lprior)
                         self.j_priors[i, j, 0, 0] = (self.j_priors[i, j, 0, 0] + self.lprior / 4) / (
-                        self.data.shape[0] + self.lprior)
+                            self.data.shape[0] + self.lprior)
 
             sparse_cond = None
             cond0 = None
@@ -119,8 +120,8 @@ class Csn:
 
         if clt is None:
             self.node.cltree = Cltree()
-            self.node.cltree.fit(data, vdata, self.m_priors, self.j_priors, alpha=self.alpha,
-                                 and_leaves=self.and_leaves, sample_weight=self.sample_weight)
+            self.node.cltree.fit(data,self.m_priors, self.j_priors, alpha=self.alpha,
+                                 and_leaves=self.and_leaves, sample_weight=self.sample_weight, noise=self.noise)
             self.orig_ll = self.node.cltree.score_samples_log_proba(self.data, sample_weight=self.sample_weight)
             self.d = int(math.sqrt(self.data.shape[1]))
             sparsity = 0.0
@@ -470,7 +471,8 @@ class Csn:
         best_gain = -np.inf
         best_left_sample_weight = None
         best_right_sample_weight = None
-
+        best_left_vdata = None
+        best_right_vdata = None
         if self.sum_nodes:
 
             # check for clustering
@@ -543,6 +545,10 @@ class Csn:
             left_data = self.data[condition, :][:, new_features]
             right_data = self.data[~condition, :][:, new_features]
 
+            vdata_condition = self.vdata[:, feature] == 0
+            left_vdata = self.vdata[vdata_condition, :][:, new_features]
+            right_vdata = self.vdata[~vdata_condition, :][:, new_features]
+
             if self.sample_weight is not None:
                 left_sample_weight = self.sample_weight[condition]
                 right_sample_weight = self.sample_weight[~condition]
@@ -554,27 +560,29 @@ class Csn:
                 left_weight = (left_data.shape[0]) / (self.data.shape[0])
                 right_weight = (right_data.shape[0]) / (self.data.shape[0])
 
-            if left_data.shape[0] > 0 and right_data.shape[0] > 0:
+            if left_data.shape[0] > 0 and right_data.shape[0] > 0 and left_vdata.shape[0] > 0 and right_vdata.shape[
+                0] > 0:
 
                 left_scope = np.concatenate((self.node.cltree.scope[0:feature], self.node.cltree.scope[feature + 1:]))
                 right_scope = np.concatenate((self.node.cltree.scope[0:feature], self.node.cltree.scope[feature + 1:]))
                 CL_l = Cltree()
                 CL_r = Cltree()
 
-                CL_l.fit(left_data, self.vdata, self.m_priors, self.j_priors, scope=left_scope,
+                CL_l.fit(left_data, self.m_priors, self.j_priors, scope=left_scope,
                          alpha=self.alpha * left_weight,
-                         and_leaves=self.and_leaves, sample_weight=left_sample_weight)
-                CL_r.fit(right_data, self.vdata, self.m_priors, self.j_priors, scope=right_scope,
+                         and_leaves=self.and_leaves, sample_weight=left_sample_weight, noise=self.noise)
+                CL_r.fit(right_data,self.m_priors, self.j_priors, scope=right_scope,
                          alpha=self.alpha * right_weight,
-                         and_leaves=self.and_leaves, sample_weight=right_sample_weight)
+                         and_leaves=self.and_leaves, sample_weight=right_sample_weight, noise=self.noise)
 
                 l_ll = CL_l.score_samples_log_proba(left_data, sample_weight=left_sample_weight)
                 r_ll = CL_r.score_samples_log_proba(right_data, sample_weight=right_sample_weight)
 
                 if self.sample_weight is not None:
                     ll = (
-                         (l_ll + logr(left_weight)) * np.sum(left_sample_weight) + (r_ll + logr(right_weight)) * np.sum(
-                             right_sample_weight)) / np.sum(self.sample_weight)
+                             (l_ll + logr(left_weight)) * np.sum(left_sample_weight) + (
+                                 r_ll + logr(right_weight)) * np.sum(
+                                 right_sample_weight)) / np.sum(self.sample_weight)
                 else:
                     ll = ((l_ll + logr(left_weight)) * left_data.shape[0] + (r_ll + logr(right_weight)) *
                           right_data.shape[0]) / self.data.shape[0]
@@ -590,9 +598,10 @@ class Csn:
                 best_right_weight = right_weight
                 best_right_data = right_data
                 best_left_data = left_data
+                best_right_vdata = right_vdata
+                best_left_vdata = left_vdata
                 best_l_ll = l_ll
                 best_r_ll = r_ll
-
                 best_left_sample_weight = left_sample_weight
                 best_right_sample_weight = right_sample_weight
 
@@ -631,7 +640,7 @@ class Csn:
                 self.free_memory()
 
                 self.node.left_child = Csn(data=best_left_data,
-                                           vdata=self.vdata,
+                                           vdata=best_left_vdata,
                                            clt=best_clt_l, ll=best_l_ll,
                                            min_instances=self.min_instances,
                                            min_features=self.min_features, alpha=self.alpha * best_left_weight,
@@ -641,9 +650,10 @@ class Csn:
                                            and_leaves=self.and_leaves, and_inners=self.and_inners,
                                            min_gain=self.min_gain, depth=self.depth + 1,
                                            sample_weight=best_left_sample_weight,
-                                           forest_approach=self.forest_approach)
+                                           forest_approach=self.forest_approach,
+                                           noise=self.noise)
                 self.node.right_child = Csn(data=best_right_data,
-                                            vdata=self.vdata,
+                                            vdata=best_right_vdata,
                                             clt=best_clt_r, ll=best_r_ll,
                                             min_instances=self.min_instances,
                                             min_features=self.min_features, alpha=self.alpha * best_right_weight,
@@ -654,7 +664,8 @@ class Csn:
                                             and_leaves=self.and_leaves, and_inners=self.and_inners,
                                             min_gain=self.min_gain, depth=self.depth + 1,
                                             sample_weight=best_right_sample_weight,
-                                            forest_approach=self.forest_approach)
+                                            forest_approach=self.forest_approach,
+                                            noise=self.noise)
 
             else:
                 self.node = SumNode()
@@ -670,7 +681,7 @@ class Csn:
                 # free memory before to recurse
                 self.free_memory()
 
-                self.node.children.append(Csn(data=cluster_0_data, vdata=self.vdata,
+                self.node.children.append(Csn(data=cluster_0_data, vdata=None,
                                               clt=cluster_0_tree, ll=cluster_0_ll,
                                               min_instances=self.min_instances,
                                               min_features=self.min_features, alpha=self.alpha * cluster_0_weight,
@@ -680,8 +691,8 @@ class Csn:
                                               and_leaves=self.and_leaves, and_inners=self.and_inners,
                                               min_gain=self.min_gain, depth=self.depth + 1,
                                               sample_weight=None,
-                                              forest_approach=self.forest_approach))
-                self.node.children.append(Csn(data=cluster_1_data, vdata=self.vdata,
+                                              forest_approach=self.forest_approach, noise=self.noise))
+                self.node.children.append(Csn(data=cluster_1_data, vdata=None,
                                               clt=cluster_1_tree, ll=cluster_1_ll,
                                               min_instances=self.min_instances,
                                               min_features=self.min_features, alpha=self.alpha * cluster_1_weight,
@@ -692,7 +703,7 @@ class Csn:
                                               and_leaves=self.and_leaves, and_inners=self.and_inners,
                                               min_gain=self.min_gain, depth=self.depth + 1,
                                               sample_weight=None,
-                                              forest_approach=self.forest_approach))
+                                              forest_approach=self.forest_approach, noise=self.noise))
 
         else:
             # Make a forest

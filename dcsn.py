@@ -92,10 +92,13 @@ parser.add_argument('-v', '--verbose', type=int, nargs='?',
                     default=1,
                     help='Verbosity level')
 parser.add_argument('--ap', nargs='+',
-                    help='Specify the approach to be used to create the forest. First parameter is the'
+                    help='The approach to be used to create the forest. First parameter is the'
                          ' approach\'s name, the others are specific dependent parameters of the'
                          ' chosen approach(ii : Iterative improvement,rii:Randomised Iterative Improvement,grasp bk: best k edges; grasp noise: Noise the MI matrix )'
                     )
+
+parser.add_argument('--noise', type=float, nargs='+',
+                    help='Add noise to the MI matrix')
 #
 # parsing the args
 
@@ -124,7 +127,7 @@ and_node = args.an
 
 sum_nodes = args.sum
 ap = args.ap
-
+noise = args.noise
 #
 # elaborating the dataset
 #
@@ -151,8 +154,8 @@ best_valid_avg_ll = -np.inf
 best_state = {}
 
 preamble = (
-"""components,alpha,minst,mfeat,or_nodes,sum_nodes,and_nodes,leaf_nodes,or_edges,clt_edges,cltrees,clforests,depth,mdepth,time,""" +
-"""train_ll,valid_ll,test_ll\n""")
+    """components,alpha,minst,mfeat,or_nodes,sum_nodes,and_nodes,leaf_nodes,or_edges,clt_edges,cltrees,clforests,depth,mdepth,time,""" +
+    """train_ll,valid_ll,test_ll\n""")
 
 max_components = max(n_components)
 
@@ -196,7 +199,8 @@ with open(out_log_path, 'w') as out_log:
                          and_leaves=and_leaf,
                          and_inners=and_node, sum_nodes=sum_nodes,
                          validation_data=valid,
-                         forest_approach=ap)
+                         forest_approach=ap,
+                         noise=noise)
 
                 C.fit()
 

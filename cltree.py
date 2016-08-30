@@ -18,6 +18,8 @@ from logr import logr
 from min_span_tree import minimum_spanning_tree_K
 from utils import check_is_fitted
 
+np.seterr(all='raise')
+
 
 ###############################################################################
 
@@ -116,7 +118,8 @@ class Cltree:
     def is_forest(self):
         return self._forest
 
-    def fit(self, X, vdata, m_priors, j_priors, alpha=1.0, sample_weight=None, scope=None, and_leaves=False):
+    def fit(self, X,m_priors, j_priors, alpha=1.0, sample_weight=None, scope=None, and_leaves=False,
+            noise=None):
         """Fit the model to the data.
 
         Parameters
@@ -141,14 +144,6 @@ class Cltree:
 
         and_leaves: boolean, default=False
 
-        forest_approach:
-        Defines the approach to be used when creating the forest
-        It has at least one element which defines the name of the approach to be used,
-        the others parameters are strictly dependent on the approach chosen.
-            -ii => Iterative Improvement
-            -rii => Randomised Iterative Improvement
-            -grasp bk => Best k edges construction
-            -grasp noise=> Construct the tree from a noised MI matrix
 
         """
 
@@ -172,15 +167,14 @@ class Cltree:
         self.log_c_probs = log_c_probs
 
         self.MI = self.cMI(log_probs, log_j_probs)
-        #self.MI =self.__AddNoise(2)
+        if noise is not None:
+            self.MI = self.__AddNoise(noise)
 
         self.tree = None
-        self._Minimum_SPTree_log_probs(vdata, log_probs, log_c_probs)
-
-
+        self._Minimum_SPTree_log_probs( log_probs, log_c_probs)
         self.num_edges = self.n_features - self.num_trees
 
-    def _Minimum_SPTree_log_probs(self, vdata, log_probs, log_c_probs):
+    def _Minimum_SPTree_log_probs(self, log_probs, log_c_probs):
         """ the tree is represented as a sequence of parents"""
         mst = minimum_spanning_tree(-(self.MI))
         dfs_tree = depth_first_order(mst, directed=False, i_start=0)
@@ -190,7 +184,6 @@ class Cltree:
         # computing the factored representation
         self.log_factors = np.zeros((self.n_features, 2, 2))
         self.log_factors = compute_log_factors(self.tree, self.n_features, log_probs, log_c_probs, self.log_factors)
-        self.current_best_validationll = self.score_samples_log_proba(vdata)
 
     def create_tree(self, dfs_tree):
         tree = np.zeros(self.n_features, dtype=np.int)
@@ -332,30 +325,21 @@ class Cltree:
 
     def __GRASP(self, forest_approach, vdata):
 
-        grasp_variant = forest_approach[1]
         times = 3
         k = 3  # Best k edges
-        variance = 1
 
-        if len(forest_approach) > 2:
-            times = int(forest_approach[2])
-            if len(forest_approach) > 3:
-                param = forest_approach[3]
-                if grasp_variant == 'bk':
-                    k = int(param)
-                elif grasp_variant == 'noise':
-                    variance = float(param)
+        if len(forest_approach) > 1:
+            times = int(forest_approach[1])
+            if len(forest_approach) > 2:
+                k = int(forest_approach[2])
+
         """GRASP"""
         t = 0
         while t < times:
 
             """CONSTRUCT"""
             initial_tree = None
-            if grasp_variant == 'noise':
-                noised_MI = self.__AddNoise(variance)
-                mst = minimum_spanning_tree(-(noised_MI))
-            elif grasp_variant == 'bk':
-                mst = minimum_spanning_tree_K(-(self.MI), k)  # Using modified version of kruskal algorithm
+            mst = minimum_spanning_tree_K(-(self.MI), k)  # Using modified version of kruskal algorithm
 
             dfs_tree = depth_first_order(mst, directed=False, i_start=0)
             initial_tree = self.create_tree(dfs_tree)
@@ -398,7 +382,8 @@ class Cltree:
             t += 1
 
     def __AddNoise(self, variance):
-        new_MI = np.maximum(0.00001, np.copy(self.MI) + variance * np.random.randn(self.n_features, self.n_features))
+
+        new_MI = np.copy(self.MI) + variance * np.abs(np.random.randn(self.n_features, self.n_features))
         triangular_lower_ids = np.tril_indices(new_MI.shape[0])
         new_MI[triangular_lower_ids] = np.triu(new_MI).T[triangular_lower_ids]
 
@@ -425,7 +410,7 @@ class Cltree:
                     self.current_best_validationll = best_ll
                     self.num_trees += 1
                     self.tree[best_edge] = -1
-                    
+
                     self.log_factors = np.zeros((self.n_features, 2, 2))
                     self.log_factors = compute_log_factors(self.tree, self.n_features, self.log_probs, self.log_c_probs,
                                                            self.log_factors)

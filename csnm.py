@@ -27,7 +27,7 @@ def csv_2_numpy(file, path=DATA_PATH, sep=',', type='int'):
 class Csnm:
     def __init__(self, training_data, validation_data, sample_weight=None, max_components=1,
                  p=1.0, min_instances=5, min_features=3, alpha=1.0, random_forest=False,
-                 and_leaves=False, and_inners=False, sum_nodes=False, forest_approach=None):
+                 and_leaves=False, and_inners=False, sum_nodes=False, forest_approach=None, noise=None):
 
         self.max_components = max_components
         self.training_data = training_data
@@ -45,7 +45,7 @@ class Csnm:
 
         self.p = p
         self.random_forest = random_forest
-
+        self.noise = noise
         self.sample_weight = sample_weight
 
         self.bags = [None] * self.max_components
@@ -103,7 +103,8 @@ class Csnm:
                                    random_forest=self.random_forest,
                                    and_leaves=self.and_leaves, and_inners=self.and_inners,
                                    depth=1, sum_nodes=self.sum_nodes,
-                                   forest_approach=self.approach)
+                                   forest_approach=self.approach,
+                                   noise=self.noise)
 
             self.csns[i].show()
             self.lls[i] = self.csns[i].score_samples_log_proba(self.training_data)
@@ -118,7 +119,7 @@ class Csnm:
             self.depth[i] = CSN.Csn._depth
             self.mdepth[i] = CSN.Csn._mean_depth / CSN.Csn._leaf_nodes
 
-        #            print("Correct:", self.csns[i].check_correctness(self.bags[i].shape[1]))
+            #            print("Correct:", self.csns[i].check_correctness(self.bags[i].shape[1]))
 
     def compute_weights(self, n_c):
         sum_ll = 0.0
