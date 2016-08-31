@@ -153,9 +153,15 @@ if not os.path.exists(os.path.dirname(out_log_path)):
 best_valid_avg_ll = -np.inf
 best_state = {}
 
-preamble = (
-    """components,alpha,minst,mfeat,or_nodes,sum_nodes,and_nodes,leaf_nodes,or_edges,clt_edges,cltrees,clforests,depth,mdepth,time,""" +
-    """train_ll,valid_ll,test_ll\n""")
+
+pre="noise_variance,forest_approach,"
+if ap is not None and ap[0]=='rii':
+    pre+="probability,times,"
+elif ap is not None and ap[0]=='grasp':
+    pre+="times,best_k,"
+
+pre+="components,alpha,minst,mfeat,or_nodes,sum_nodes,and_nodes,leaf_nodes,or_edges,clt_edges,cltrees,clforests,depth,mdepth,time,train_ll,valid_ll,test_ll\n"
+preamble = pre
 
 max_components = max(n_components)
 
@@ -265,26 +271,79 @@ with open(out_log_path, 'w') as out_log:
 
                     #
                     # writing to file a line for the grid
-                    stats = stats_format([c,
-                                          alpha,
-                                          min_instances,
-                                          min_features,
-                                          or_nodes,
-                                          n_sum_nodes,
-                                          and_nodes,
-                                          leaf_nodes,
-                                          or_edges,
-                                          clt_edges,
-                                          cltrees,
-                                          clforests,
-                                          depth,
-                                          mdepth,
-                                          learning_time,
-                                          train_avg_ll,
-                                          valid_avg_ll,
-                                          test_avg_ll],
-                                         ',',
-                                         digits=5)
+                    if ap is not None:
+                        if ap[0]=='ii':
+                            stats = stats_format([str(noise),
+                                                  ap[0],
+                                                  c,
+                                                  alpha,
+                                                  min_instances,
+                                                  min_features,
+                                                  or_nodes,
+                                                  n_sum_nodes,
+                                                  and_nodes,
+                                                  leaf_nodes,
+                                                  or_edges,
+                                                  clt_edges,
+                                                  cltrees,
+                                                  clforests,
+                                                  depth,
+                                                  mdepth,
+                                                  learning_time,
+                                                  train_avg_ll,
+                                                  valid_avg_ll,
+                                                  test_avg_ll],
+                                                 ',',
+                                                 digits=5)
+
+                        else:
+                            stats = stats_format([str(noise),
+                                                  ap[0],
+                                                  ap[1],
+                                                  ap[2],
+                                                  c,
+                                                  alpha,
+                                                  min_instances,
+                                                  min_features,
+                                                  or_nodes,
+                                                  n_sum_nodes,
+                                                  and_nodes,
+                                                  leaf_nodes,
+                                                  or_edges,
+                                                  clt_edges,
+                                                  cltrees,
+                                                  clforests,
+                                                  depth,
+                                                  mdepth,
+                                                  learning_time,
+                                                  train_avg_ll,
+                                                  valid_avg_ll,
+                                                  test_avg_ll],
+                                                 ',',
+                                                 digits=5)
+                    else:
+                        stats = stats_format([str(noise),
+                                              'None',
+                                              c,
+                                              alpha,
+                                              min_instances,
+                                              min_features,
+                                              or_nodes,
+                                              n_sum_nodes,
+                                              and_nodes,
+                                              leaf_nodes,
+                                              or_edges,
+                                              clt_edges,
+                                              cltrees,
+                                              clforests,
+                                              depth,
+                                              mdepth,
+                                              learning_time,
+                                              train_avg_ll,
+                                              valid_avg_ll,
+                                              test_avg_ll],
+                                             ',',
+                                             digits=5)
                     out_log.write(stats + '\n')
                     out_log.flush()
 

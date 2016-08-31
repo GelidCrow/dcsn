@@ -18,8 +18,6 @@ from logr import logr
 from min_span_tree import minimum_spanning_tree_K
 from utils import check_is_fitted
 
-np.seterr(all='raise')
-
 
 ###############################################################################
 
