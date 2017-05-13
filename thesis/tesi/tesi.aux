@@ -1,0 +1,999 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\zref@newlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\select@language{italian}
+\@writefile{toc}{\select@language{italian}}
+\@writefile{lof}{\select@language{italian}}
+\@writefile{lot}{\select@language{italian}}
+\select@language{italian}
+\@writefile{toc}{\select@language{italian}}
+\@writefile{lof}{\select@language{italian}}
+\@writefile{lot}{\select@language{italian}}
+\citation{koller}
+\citation{bishop}
+\citation{rahman}
+\citation{chowliu}
+\citation{krusk}
+\citation{dimauro}
+\citation{slsbook}
+\citation{dimauro}
+\citation{dimauro}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduzione}{3}{section.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Contesto}{3}{subsection.1.1}}
+\citation{rahman}
+\citation{dimauro}
+\citation{dimauro}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Strutturazione del documento}{4}{subsection.1.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Concetti preliminari}{4}{subsection.1.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Un algoritmo di apprendimento prende in input un learning set e produce in output un modello.\relax }}{5}{figure.caption.2}}
+\citation{bishop2}
+\citation{bishop2}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Machine Learning e Probabilistic Graphical Models}{7}{section.2}}
+\newlabel{mlpgm}{{2}{7}{Machine Learning e Probabilistic Graphical Models}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Machine Learning}{7}{subsection.2.1}}
+\newlabel{ml}{{2.1}{7}{Machine Learning}{subsection.2.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}Tipologie di apprendimento}{7}{subsubsection.2.1.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2}Valutazione}{7}{subsubsection.2.1.2}}
+\newlabel{valutazione}{{2.1.2}{7}{Valutazione}{subsubsection.2.1.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.3}Density Estimation}{8}{subsubsection.2.1.3}}
+\newlabel{de}{{2.1.3}{8}{Density Estimation}{subsubsection.2.1.3}{}}
+\citation{kullback}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Cercando di minimizzare l'errore sul learning set si pu\`o superare un punto per cui l'errore sul training set continua a migliorare ma quello sul test set inizia a peggiorare, portando cos\IeC {\`\i } all'overfitting.\relax }}{9}{figure.caption.3}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:over}{{2}{9}{Cercando di minimizzare l'errore sul learning set si può superare un punto per cui l'errore sul training set continua a migliorare ma quello sul test set inizia a peggiorare, portando così all'overfitting.\relax }{figure.caption.3}{}}
+\citation{koller}
+\citation{onisko}
+\citation{onisko}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Probabilistic Graphical Models}{11}{subsection.2.2}}
+\newlabel{pgm}{{2.2}{11}{Probabilistic Graphical Models}{subsection.2.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Reti Bayesiane}{11}{subsubsection.2.2.1}}
+\citation{chowliu}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Rete bayesiana che modella malattie al fegato(in particolare la \textit  {cirrosi biliare primitva} e \textit  {steatosi epatica}). Esempio ispirato da \cite  {onisko} \relax }}{12}{figure.caption.4}}
+\newlabel{fig:bn}{{3}{12}{Rete bayesiana che modella malattie al fegato(in particolare la \textit {cirrosi biliare primitva} e \textit {steatosi epatica}). Esempio ispirato da \cite {onisko} \relax }{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Alberi di Chow-Liu}{13}{subsubsection.2.2.2}}
+\newlabel{cltree}{{2.2.2}{13}{Alberi di Chow-Liu}{subsubsection.2.2.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \relax }}{14}{figure.caption.5}}
+\newlabel{fig:kruskal}{{4}{14}{\relax }{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Il processo va avanti fino a quando non si \`e collegati tutti i nodi mantenendo le propriet\`a di un albero.\relax }}{15}{figure.caption.6}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Learn Chow-Liu tree($\mathcal  {D}$,X)\relax }}{15}{algorithm.1}}
+\newlabel{alg:alg1}{{1}{15}{Learn Chow-Liu tree($\mathcal {D}$,X)\relax }{algorithm.1}{}}
+\citation{manuscript}
+\citation{bre96}
+\citation{manuscript}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.3}Misture di PGM}{16}{subsubsection.2.2.3}}
+\citation{dechter}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Il processo di bagging sceglie in maniera randomica delle osservazioni dal training set originale e le copia nel nuovo training set. Si pu\`o notare come nel nuovo training set c'\`e la possibilit\`a di trovare una stessa osservazione pi\`u volte.\relax }}{17}{figure.caption.7}}
+\newlabel{fig:bagging}{{6}{17}{Il processo di bagging sceglie in maniera randomica delle osservazioni dal training set originale e le copia nel nuovo training set. Si può notare come nel nuovo training set c'è la possibilità di trovare una stessa osservazione più volte.\relax }{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.4}Alberi OR}{17}{subsubsection.2.2.4}}
+\citation{rahman}
+\citation{dimauro}
+\citation{dimauro}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.5}Cutset Networks}{18}{subsubsection.2.2.5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Una cutset network avente 6 features.\textit  {Figura presa da \cite  {dimauro}}\relax }}{18}{figure.caption.8}}
+\newlabel{fig:cutsetn1}{{7}{18}{Una cutset network avente 6 features.\textit {Figura presa da \cite {dimauro}}\relax }{figure.caption.8}{}}
+\citation{rahman}
+\citation{meila}
+\citation{dimauro}
+\citation{rahman}
+\@writefile{toc}{\contentsline {paragraph}{Definizione: Cutset Network.}{19}{section*.9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.6}Apprendimento delle Cutset Networks}{19}{subsubsection.2.2.6}}
+\citation{dimauro}
+\citation{friedman}
+\citation{heckerman}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.7}Decomposability based Cutset Network learning}{20}{subsubsection.2.2.7}}
+\newlabel{dcsn}{{2.2.7}{20}{Decomposability based Cutset Network learning}{subsubsection.2.2.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Alcuni passi di dcsn. I nodi rossi rappresentano la variabili per cui la decomposizione produce un aumento nel likelihood. I nodi tratteggiati rappresentano nodi OR. La cutset network finale, in questo caso, contiene 2 nodi OR (X\textsubscript  {2} e X\textsubscript  {4}) e 3 alberi di Chow-Liu come foglie. Ogni variabile pu\`o assumere solo 2 valori.\relax }}{22}{figure.caption.10}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces dCSN($\mathcal  {D}$,X,$\alpha $\textsubscript  {\textit  {f}},$\delta $, $\sigma $)\relax }}{23}{algorithm.2}}
+\newlabel{alg:alg2}{{0}{23}{dCSN($\mathcal {D}$,X,$\alpha $\textsubscript {\textit {f}},$\delta $, $\sigma $)\relax }{algorithm.2}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces decompose($\mathcal  {D}$,X,$\alpha ,\mathcal  {T},\theta ,w,\delta ,\sigma $)\relax }}{24}{algorithm.3}}
+\newlabel{alg:alg3}{{0}{24}{decompose($\mathcal {D}$,X,$\alpha ,\mathcal {T},\theta ,w,\delta ,\sigma $)\relax }{algorithm.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Tecniche di Stochastic Local Search}{25}{section.3}}
+\newlabel{sls}{{3}{25}{Tecniche di Stochastic Local Search}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Ricerca locale e problemi combinatoriali}{25}{subsection.3.1}}
+\newlabel{ricloc}{{3.1}{25}{Ricerca locale e problemi combinatoriali}{subsection.3.1}{}}
+\citation{slsbook}
+\citation{slsbook}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Presa da \cite  {slsbook}\relax }}{26}{figure.caption.11}}
+\newlabel{fig:localsearch}{{9}{26}{Presa da \cite {slsbook}\relax }{figure.caption.11}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Paradigmi di ricerca}{27}{subsubsection.3.1.1}}
+\citation{slsbook}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Ricerca stocastica}{28}{subsection.3.2}}
+\newlabel{stoc}{{3.2}{28}{Ricerca stocastica}{subsection.3.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Iterative improvement}{29}{subsection.3.3}}
+\newlabel{iip}{{3.3}{29}{Iterative improvement}{subsection.3.3}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Iterative improvement\relax }}{29}{algorithm.4}}
+\newlabel{algii}{{4}{29}{Iterative improvement\relax }{algorithm.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces In questa figura le soluzioni $s$ e $s'$ differiscono solamente per la componente 2. Quindi per capire se conviene scegliere $s'$ al posto di $s$ \`e efficiente misurare solamente i costi delle componenti non in comune. In questo caso la componente 2 di $s'$ ha un costo minore rispetto alla componente 2 di $s$; essendo le componenti indipendenti il cambiamento di costo della componente 2 non influenza quello delle altre componenti 1 e 3.\relax }}{30}{figure.caption.12}}
+\newlabel{fig:ii}{{10}{30}{In questa figura le soluzioni $s$ e $s'$ differiscono solamente per la componente 2. Quindi per capire se conviene scegliere $s'$ al posto di $s$ è efficiente misurare solamente i costi delle componenti non in comune. In questo caso la componente 2 di $s'$ ha un costo minore rispetto alla componente 2 di $s$; essendo le componenti indipendenti il cambiamento di costo della componente 2 non influenza quello delle altre componenti 1 e 3.\relax }{figure.caption.12}{}}
+\@writefile{toc}{\contentsline {paragraph}{Minimo locale e problemi annessi.}{30}{section*.13}}
+\@writefile{toc}{\contentsline {paragraph}{Definizione: Minimo locale.}{31}{section*.14}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Randomised iterative improvement}{31}{subsection.3.4}}
+\newlabel{riip}{{3.4}{31}{Randomised iterative improvement}{subsection.3.4}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {5}{\ignorespaces Randomised Iterative improvement($\pi $,s,p)\relax }}{32}{algorithm.5}}
+\newlabel{riipseudo}{{5}{32}{Randomised Iterative improvement($\pi $,s,p)\relax }{algorithm.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Greedy Randomised Adaptive Search Procedures}{32}{subsection.3.5}}
+\newlabel{grasppp}{{3.5}{32}{Greedy Randomised Adaptive Search Procedures}{subsection.3.5}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {6}{\ignorespaces GRASP($\pi $)\relax }}{33}{algorithm.6}}
+\newlabel{alg:grasp}{{6}{33}{GRASP($\pi $)\relax }{algorithm.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Stochastic Local Search per Cutset Network}{35}{section.4}}
+\newlabel{appsls}{{4}{35}{Stochastic Local Search per Cutset Network}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Apprendimento di foreste}{35}{subsection.4.1}}
+\newlabel{for}{{4.1}{35}{Apprendimento di foreste}{subsection.4.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Definizione: Foresta di Chow-Liu}{35}{section*.15}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces  La figura rappresenta una foresta contenente 3 alberi. La struttura potrebbe evidenziare il fatto che la variabile $X_7$ non dipenda da nessun'altra variabile e quindi sia essa stessa un albero di Chow-Liu. \relax }}{36}{figure.caption.16}}
+\newlabel{fig:forest}{{11}{36}{La figura rappresenta una foresta contenente 3 alberi. La struttura potrebbe evidenziare il fatto che la variabile $X_7$ non dipenda da nessun'altra variabile e quindi sia essa stessa un albero di Chow-Liu. \relax }{figure.caption.16}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Aggiunta di rumore}{37}{subsection.4.2}}
+\newlabel{noise}{{4.2}{37}{Aggiunta di rumore}{subsection.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Stochastic Local Search per l'apprendimento di Cutset Network}{37}{subsection.4.3}}
+\newlabel{applicazione}{{4.3}{37}{Stochastic Local Search per l'apprendimento di Cutset Network}{subsection.4.3}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {7}{\ignorespaces Iterative improvement(cltree)\relax }}{38}{algorithm.7}}
+\newlabel{alg:ii}{{7}{38}{Iterative improvement(cltree)\relax }{algorithm.7}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {8}{\ignorespaces Randomised Iterative improvement(cltree,probability,times)\relax }}{39}{algorithm.8}}
+\newlabel{alg:rii}{{8}{39}{Randomised Iterative improvement(cltree,probability,times)\relax }{algorithm.8}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {9}{\ignorespaces GRASP(times, k,cltree)\relax }}{40}{algorithm.9}}
+\newlabel{alg:graspa}{{9}{40}{GRASP(times, k,cltree)\relax }{algorithm.9}{}}
+\citation{lowd}
+\citation{haaren}
+\citation{dimauro}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Sperimentazioni}{42}{section.5}}
+\newlabel{sperimentazione}{{5}{42}{Sperimentazioni}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Datasets}{42}{subsection.5.1}}
+\newlabel{datasets}{{5.1}{42}{Datasets}{subsection.5.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Datasets utilizzati\relax }}{42}{table.caption.17}}
+\newlabel{tab:table1}{{1}{42}{Datasets utilizzati\relax }{table.caption.17}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Dettagli implementativi}{43}{subsection.5.2}}
+\newlabel{det}{{5.2}{43}{Dettagli implementativi}{subsection.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Risultati}{43}{subsection.5.3}}
+\newlabel{ris}{{5.3}{43}{Risultati}{subsection.5.3}{}}
+\gdef \LT@i {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}nltcs}{44}{subsubsection.5.3.1}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces dataset:nltcs, nessun algoritmo di SLS applicato, senza rumore\relax }}{44}{table.2}}
+\newlabel{nltcs}{{2}{44}{dataset:nltcs, nessun algoritmo di SLS applicato, senza rumore\relax }{table.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces dataset: nltcs, nessun algoritmo di SLS applicato, varianza del rumore: 0.1\relax }}{44}{table.3}}
+\newlabel{nltcs2}{{3}{44}{dataset: nltcs, nessun algoritmo di SLS applicato, varianza del rumore: 0.1\relax }{table.3}{}}
+\gdef \LT@ii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@iii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces dataset: nltcs, nessun algoritmo di SLS applicato, varianza del rumore: 0.5\relax }}{45}{table.4}}
+\newlabel{nltcs3}{{4}{45}{dataset: nltcs, nessun algoritmo di SLS applicato, varianza del rumore: 0.5\relax }{table.4}{}}
+\gdef \LT@iv {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}\LT@entry 
+    {1}{0.0pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces dataset: nltcs, nessun algoritmo di SLS applicato, varianza del rumore: 1\relax }}{46}{table.5}}
+\newlabel{nltcs4}{{5}{46}{dataset: nltcs, nessun algoritmo di SLS applicato, varianza del rumore: 1\relax }{table.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces dataset: nltcs, nessun algoritmo di SLS applicato, varianza del rumore: 2\relax }}{46}{table.6}}
+\newlabel{nltcs5}{{6}{46}{dataset: nltcs, nessun algoritmo di SLS applicato, varianza del rumore: 2\relax }{table.6}{}}
+\gdef \LT@v {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@vi {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces dataset: nltcs, nessun algoritmo di SLS applicato, varianza del rumore: 3\relax }}{47}{table.7}}
+\newlabel{nltcs6}{{7}{47}{dataset: nltcs, nessun algoritmo di SLS applicato, varianza del rumore: 3\relax }{table.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces dataset: nltcs, Iterative Improvement senza rumore\relax }}{47}{table.8}}
+\newlabel{nltcsii}{{8}{47}{dataset: nltcs, Iterative Improvement senza rumore\relax }{table.8}{}}
+\gdef \LT@vii {\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces dataset: nltcs, Iterative Improvement senza rumore\relax }}{48}{table.9}}
+\newlabel{nltcsii2}{{9}{48}{dataset: nltcs, Iterative Improvement senza rumore\relax }{table.9}{}}
+\gdef \LT@viii {\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@ix {\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces dataset: nltcs, Iterative Improvement con rumore avente varianza 2\relax }}{49}{table.10}}
+\newlabel{nltcsii3}{{10}{49}{dataset: nltcs, Iterative Improvement con rumore avente varianza 2\relax }{table.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces dataset: nltcs, Iterative Improvement con rumore avente varianza 0.1\relax }}{49}{table.11}}
+\newlabel{nltcsii4}{{11}{49}{dataset: nltcs, Iterative Improvement con rumore avente varianza 0.1\relax }{table.11}{}}
+\gdef \LT@x {\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@xi {\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces dataset: nltcs, Iterative Improvement con rumore avente varianza 0.5\relax }}{50}{table.12}}
+\newlabel{nltcsii5}{{12}{50}{dataset: nltcs, Iterative Improvement con rumore avente varianza 0.5\relax }{table.12}{}}
+\gdef \LT@xii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces dataset: nltcs, Randomised Iterative Improvement senza rumore, con probabilit\`a 0.6 e times = 10\relax }}{51}{table.13}}
+\newlabel{nltcsrii}{{13}{51}{dataset: nltcs, Randomised Iterative Improvement senza rumore, con probabilità 0.6 e times = 10\relax }{table.13}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {14}{\ignorespaces dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza 0.1, con probabilit\`a 0.6 e times = 10\relax }}{51}{table.14}}
+\newlabel{nltcsrii2}{{14}{51}{dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza 0.1, con probabilità 0.6 e times = 10\relax }{table.14}{}}
+\gdef \LT@xiii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@xiv {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {15}{\ignorespaces dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza di 0.5, con probabilit\`a 0.6 e times = 10\relax }}{52}{table.15}}
+\newlabel{nltcsrii3}{{15}{52}{dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza di 0.5, con probabilità 0.6 e times = 10\relax }{table.15}{}}
+\gdef \LT@xv {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {16}{\ignorespaces dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza di 1, con probabilit\`a 0.6 e times = 10\relax }}{53}{table.16}}
+\newlabel{nltcsrii4}{{16}{53}{dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza di 1, con probabilità 0.6 e times = 10\relax }{table.16}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {17}{\ignorespaces dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza di 2, con probabilit\`a 0.6 e times = 10\relax }}{53}{table.17}}
+\newlabel{nltcsrii5}{{17}{53}{dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza di 2, con probabilità 0.6 e times = 10\relax }{table.17}{}}
+\gdef \LT@xvi {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@xvii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {18}{\ignorespaces dataset: nltcs, Randomised Iterative Improvement senza rumore, con probabilit\`a 0.8 e times = 10\relax }}{54}{table.18}}
+\newlabel{nltcsrii6}{{18}{54}{dataset: nltcs, Randomised Iterative Improvement senza rumore, con probabilità 0.8 e times = 10\relax }{table.18}{}}
+\gdef \LT@xviii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {19}{\ignorespaces dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza di 0.1, con probabilit\`a 0.8 e times = 10\relax }}{55}{table.19}}
+\newlabel{nltcsrii7}{{19}{55}{dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza di 0.1, con probabilità 0.8 e times = 10\relax }{table.19}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {20}{\ignorespaces dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza di 0.5, con probabilit\`a 0.8 e times = 10\relax }}{55}{table.20}}
+\newlabel{nltcsrii8}{{20}{55}{dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza di 0.5, con probabilità 0.8 e times = 10\relax }{table.20}{}}
+\gdef \LT@xix {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@xx {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {21}{\ignorespaces dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza di 1, con probabilit\`a 0.8 e times = 10\relax }}{56}{table.21}}
+\newlabel{nltcsrii9}{{21}{56}{dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza di 1, con probabilità 0.8 e times = 10\relax }{table.21}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {22}{\ignorespaces dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza di 2, con probabilit\`a 0.8 e times = 10\relax }}{56}{table.22}}
+\newlabel{nltcsrii10}{{22}{56}{dataset: nltcs, Randomised Iterative Improvement con rumore avente varianza di 2, con probabilità 0.8 e times = 10\relax }{table.22}{}}
+\gdef \LT@xxi {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {23}{\ignorespaces dataset: nltcs. GRASP senza rumore, k=3 e times=20\relax }}{57}{table.23}}
+\newlabel{nltcsgrasp}{{23}{57}{dataset: nltcs. GRASP senza rumore, k=3 e times=20\relax }{table.23}{}}
+\gdef \LT@xxii {\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@xxiii {\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {24}{\ignorespaces dataset: nltcs. GRASP con rumore avente varianza di 0.1, k=3 e times=20\relax }}{58}{table.24}}
+\newlabel{nltcsgrasp2}{{24}{58}{dataset: nltcs. GRASP con rumore avente varianza di 0.1, k=3 e times=20\relax }{table.24}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {25}{\ignorespaces dataset: nltcs. GRASP con rumore avente varianza di 0.5, k=3 e times=20\relax }}{58}{table.25}}
+\newlabel{nltcsgrasp3}{{25}{58}{dataset: nltcs. GRASP con rumore avente varianza di 0.5, k=3 e times=20\relax }{table.25}{}}
+\gdef \LT@xxiv {\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {26}{\ignorespaces dataset: nltcs. GRASP con rumore avente varianza di 1, k=3 e times=20\relax }}{59}{table.26}}
+\newlabel{nltcsgrasp3}{{26}{59}{dataset: nltcs. GRASP con rumore avente varianza di 1, k=3 e times=20\relax }{table.26}{}}
+\gdef \LT@xxv {\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@xxvi {\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {27}{\ignorespaces dataset: nltcs. GRASP con rumore avente varianza di 2, k=3 e times=20\relax }}{60}{table.27}}
+\newlabel{nltcsgrasp4}{{27}{60}{dataset: nltcs. GRASP con rumore avente varianza di 2, k=3 e times=20\relax }{table.27}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {28}{\ignorespaces dataset: nltcs. GRASP senza rumore, k=2 e times=20\relax }}{60}{table.28}}
+\newlabel{nltcsgrasp6}{{28}{60}{dataset: nltcs. GRASP senza rumore, k=2 e times=20\relax }{table.28}{}}
+\gdef \LT@xxvii {\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@xxviii {\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {29}{\ignorespaces dataset: nltcs. GRASP con rumore avente varianza di 0.1, k=2 e times=20\relax }}{61}{table.29}}
+\newlabel{nltcsgrasp7}{{29}{61}{dataset: nltcs. GRASP con rumore avente varianza di 0.1, k=2 e times=20\relax }{table.29}{}}
+\gdef \LT@xxix {\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {30}{\ignorespaces dataset: nltcs. GRASP con rumore avente varianza di 0.5, k=2 e times=20\relax }}{62}{table.30}}
+\newlabel{nltcsgrasp8}{{30}{62}{dataset: nltcs. GRASP con rumore avente varianza di 0.5, k=2 e times=20\relax }{table.30}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {31}{\ignorespaces dataset: nltcs. GRASP con rumore avente varianza di 1, k=2 e times=20\relax }}{62}{table.31}}
+\newlabel{nltcsgrasp9}{{31}{62}{dataset: nltcs. GRASP con rumore avente varianza di 1, k=2 e times=20\relax }{table.31}{}}
+\gdef \LT@xxx {\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@xxxi {\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {2}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {32}{\ignorespaces dataset: nltcs. GRASP con rumore avente varianza di 2, k=2 e times=20\relax }}{63}{table.32}}
+\newlabel{nltcsgrasp10}{{32}{63}{dataset: nltcs. GRASP con rumore avente varianza di 2, k=2 e times=20\relax }{table.32}{}}
+\gdef \LT@xxxii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}msnbc}{64}{subsubsection.5.3.2}}
+\@writefile{lot}{\contentsline {table}{\numberline {33}{\ignorespaces dataset: msnbc. Nessun algoritmo di SLS applicato\relax }}{64}{table.33}}
+\newlabel{msnbc}{{33}{64}{dataset: msnbc. Nessun algoritmo di SLS applicato\relax }{table.33}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {34}{\ignorespaces dataset: msnbc. Nessun algoritmo di SLS applicato,rumore applicato con varianza di 0.1\relax }}{64}{table.34}}
+\newlabel{msnbc2}{{34}{64}{dataset: msnbc. Nessun algoritmo di SLS applicato,rumore applicato con varianza di 0.1\relax }{table.34}{}}
+\gdef \LT@xxxiii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@xxxiv {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {35}{\ignorespaces dataset: msnbc. Nessun algoritmo di SLS applicato,rumore applicato con varianza di 0.5\relax }}{65}{table.35}}
+\newlabel{msnbc3}{{35}{65}{dataset: msnbc. Nessun algoritmo di SLS applicato,rumore applicato con varianza di 0.5\relax }{table.35}{}}
+\gdef \LT@xxxv {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {36}{\ignorespaces dataset: msnbc. Nessun algoritmo di SLS applicato,rumore applicato con varianza di 1\relax }}{66}{table.36}}
+\newlabel{msnbc4}{{36}{66}{dataset: msnbc. Nessun algoritmo di SLS applicato,rumore applicato con varianza di 1\relax }{table.36}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {37}{\ignorespaces dataset: msnbc. Nessun algoritmo di SLS applicato,rumore applicato con varianza di 2\relax }}{66}{table.37}}
+\newlabel{msnbc5}{{37}{66}{dataset: msnbc. Nessun algoritmo di SLS applicato,rumore applicato con varianza di 2\relax }{table.37}{}}
+\gdef \LT@xxxvi {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@xxxvii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {38}{\ignorespaces dataset: msnbc.Iterative Improvement senza rumore\relax }}{67}{table.38}}
+\newlabel{msnbcii}{{38}{67}{dataset: msnbc.Iterative Improvement senza rumore\relax }{table.38}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {39}{\ignorespaces dataset: msnbc.Iterative Improvement con rumore avente varianza di 0.1\relax }}{67}{table.39}}
+\newlabel{msnbcii2}{{39}{67}{dataset: msnbc.Iterative Improvement con rumore avente varianza di 0.1\relax }{table.39}{}}
+\gdef \LT@xxxviii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {40}{\ignorespaces dataset: msnbc.Iterative Improvement con rumore avente varianza di 0.5\relax }}{68}{table.40}}
+\newlabel{msnbcii3}{{40}{68}{dataset: msnbc.Iterative Improvement con rumore avente varianza di 0.5\relax }{table.40}{}}
+\gdef \LT@xxxix {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@xl {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {41}{\ignorespaces dataset: msnbc.Iterative Improvement con rumore avente varianza di 1\relax }}{69}{table.41}}
+\newlabel{msnbcii3}{{41}{69}{dataset: msnbc.Iterative Improvement con rumore avente varianza di 1\relax }{table.41}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {42}{\ignorespaces dataset: msnbc.Iterative Improvement con rumore avente varianza di 2\relax }}{69}{table.42}}
+\newlabel{msnbcii4}{{42}{69}{dataset: msnbc.Iterative Improvement con rumore avente varianza di 2\relax }{table.42}{}}
+\gdef \LT@xli {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {43}{\ignorespaces dataset: msnbc. Randomised Iterative Improvement senza rumore, probabilit\`a di 0.6, times=10\relax }}{70}{table.43}}
+\newlabel{msnbcrii}{{43}{70}{dataset: msnbc. Randomised Iterative Improvement senza rumore, probabilità di 0.6, times=10\relax }{table.43}{}}
+\gdef \LT@xlii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@xliii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {44}{\ignorespaces dataset: msnbc. Randomised Iterative Improvement con rumore avente varianza di 0.1, probabilit\`a di 0.6, times=10\relax }}{71}{table.44}}
+\newlabel{msnbcrii2}{{44}{71}{dataset: msnbc. Randomised Iterative Improvement con rumore avente varianza di 0.1, probabilità di 0.6, times=10\relax }{table.44}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {45}{\ignorespaces dataset: msnbc. Randomised Iterative Improvement con rumore avente varianza di 0.5, probabilit\`a di 0.6, times=10\relax }}{71}{table.45}}
+\newlabel{msnbcrii3}{{45}{71}{dataset: msnbc. Randomised Iterative Improvement con rumore avente varianza di 0.5, probabilità di 0.6, times=10\relax }{table.45}{}}
+\gdef \LT@xliv {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@xlv {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {46}{\ignorespaces dataset: msnbc. Randomised Iterative Improvement con rumore avente varianza di 1, probabilit\`a di 0.6, times=10\relax }}{72}{table.46}}
+\newlabel{msnbcrii4}{{46}{72}{dataset: msnbc. Randomised Iterative Improvement con rumore avente varianza di 1, probabilità di 0.6, times=10\relax }{table.46}{}}
+\gdef \LT@xlvi {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {47}{\ignorespaces dataset: msnbc. Randomised Iterative Improvement con rumore avente varianza di 2, probabilit\`a di 0.6, times=10\relax }}{73}{table.47}}
+\newlabel{msnbcrii5}{{47}{73}{dataset: msnbc. Randomised Iterative Improvement con rumore avente varianza di 2, probabilità di 0.6, times=10\relax }{table.47}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {48}{\ignorespaces dataset: msnbc. GRASP senza rumore, k=2 e times=5\relax }}{73}{table.48}}
+\newlabel{msnbcgrasp}{{48}{73}{dataset: msnbc. GRASP senza rumore, k=2 e times=5\relax }{table.48}{}}
+\gdef \LT@xlvii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@xlviii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {49}{\ignorespaces dataset: msnbc. GRASP con rumore avente varianza di 0.1, k=2 e times=5\relax }}{74}{table.49}}
+\newlabel{msnbcgrasp2}{{49}{74}{dataset: msnbc. GRASP con rumore avente varianza di 0.1, k=2 e times=5\relax }{table.49}{}}
+\gdef \LT@xlix {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {50}{\ignorespaces dataset: msnbc. GRASP con rumore avente varianza di 0.5, k=2 e times=5\relax }}{75}{table.50}}
+\newlabel{msnbcgrasp3}{{50}{75}{dataset: msnbc. GRASP con rumore avente varianza di 0.5, k=2 e times=5\relax }{table.50}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {51}{\ignorespaces dataset: msnbc. GRASP con rumore avente varianza di 1, k=2 e times=5\relax }}{75}{table.51}}
+\newlabel{msnbcgrasp4}{{51}{75}{dataset: msnbc. GRASP con rumore avente varianza di 1, k=2 e times=5\relax }{table.51}{}}
+\gdef \LT@l {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\gdef \LT@li {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{54.43013pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {52}{\ignorespaces dataset: msnbc. GRASP con rumore avente varianza di 2, k=2 e times=5\relax }}{76}{table.52}}
+\newlabel{msnbcgrasp5}{{52}{76}{dataset: msnbc. GRASP con rumore avente varianza di 2, k=2 e times=5\relax }{table.52}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.3}plants}{76}{subsubsection.5.3.3}}
+\@writefile{lot}{\contentsline {table}{\numberline {53}{\ignorespaces dataset: plants. Nessun algoritmo di SLS applicato\relax }}{76}{table.53}}
+\newlabel{plants}{{53}{76}{dataset: plants. Nessun algoritmo di SLS applicato\relax }{table.53}{}}
+\gdef \LT@lii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {54}{\ignorespaces dataset: plants. Nessun algoritmo di SLS applicato, rumore avente varianza di 0.1\relax }}{77}{table.54}}
+\newlabel{plants2}{{54}{77}{dataset: plants. Nessun algoritmo di SLS applicato, rumore avente varianza di 0.1\relax }{table.54}{}}
+\gdef \LT@liii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@liv {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {55}{\ignorespaces dataset: plants. Nessun algoritmo di SLS applicato, rumore avente varianza di 0.5\relax }}{78}{table.55}}
+\newlabel{plants3}{{55}{78}{dataset: plants. Nessun algoritmo di SLS applicato, rumore avente varianza di 0.5\relax }{table.55}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {56}{\ignorespaces dataset: plants. Nessun algoritmo di SLS applicato, rumore avente varianza di 1\relax }}{78}{table.56}}
+\newlabel{plants4}{{56}{78}{dataset: plants. Nessun algoritmo di SLS applicato, rumore avente varianza di 1\relax }{table.56}{}}
+\gdef \LT@lv {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {57}{\ignorespaces dataset: plants. Nessun algoritmo di SLS applicato, rumore avente varianza di 2\relax }}{79}{table.57}}
+\newlabel{plants5}{{57}{79}{dataset: plants. Nessun algoritmo di SLS applicato, rumore avente varianza di 2\relax }{table.57}{}}
+\gdef \LT@lvi {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@lvii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {58}{\ignorespaces dataset: plants. Iterative improvement senza rumore\relax }}{80}{table.58}}
+\newlabel{plantsii}{{58}{80}{dataset: plants. Iterative improvement senza rumore\relax }{table.58}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {59}{\ignorespaces dataset: plants. Iterative improvement con rumore avente varianza di 0.1\relax }}{80}{table.59}}
+\newlabel{plantsii2}{{59}{80}{dataset: plants. Iterative improvement con rumore avente varianza di 0.1\relax }{table.59}{}}
+\gdef \LT@lviii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@lix {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {60}{\ignorespaces dataset: plants. Iterative improvement con rumore avente varianza di 0.5\relax }}{81}{table.60}}
+\newlabel{plantsii3}{{60}{81}{dataset: plants. Iterative improvement con rumore avente varianza di 0.5\relax }{table.60}{}}
+\gdef \LT@lx {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {61}{\ignorespaces dataset: plants. Iterative improvement con rumore avente varianza di 1\relax }}{82}{table.61}}
+\newlabel{plantsii4}{{61}{82}{dataset: plants. Iterative improvement con rumore avente varianza di 1\relax }{table.61}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {62}{\ignorespaces dataset: plants. Iterative improvement con rumore avente varianza di 2\relax }}{82}{table.62}}
+\newlabel{plantsii5}{{62}{82}{dataset: plants. Iterative improvement con rumore avente varianza di 2\relax }{table.62}{}}
+\gdef \LT@lxi {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@lxii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {63}{\ignorespaces dataset: plants. Randomised Iterative Improvement senza rumore, probabilit\`a di 0.6 e times=10\relax }}{83}{table.63}}
+\newlabel{plantsrii}{{63}{83}{dataset: plants. Randomised Iterative Improvement senza rumore, probabilità di 0.6 e times=10\relax }{table.63}{}}
+\gdef \LT@lxiii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {64}{\ignorespaces dataset: plants. Randomised Iterative Improvement con rumore avente varianza di 0.1, probabilit\`a di 0.6 e times=10\relax }}{84}{table.64}}
+\newlabel{plantsrii2}{{64}{84}{dataset: plants. Randomised Iterative Improvement con rumore avente varianza di 0.1, probabilità di 0.6 e times=10\relax }{table.64}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {65}{\ignorespaces dataset: plants. Randomised Iterative Improvement con rumore avente varianza di 0.5, probabilit\`a di 0.6 e times=10\relax }}{84}{table.65}}
+\newlabel{plantsrii3}{{65}{84}{dataset: plants. Randomised Iterative Improvement con rumore avente varianza di 0.5, probabilità di 0.6 e times=10\relax }{table.65}{}}
+\gdef \LT@lxiv {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@lxv {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {66}{\ignorespaces dataset: plants. Randomised Iterative Improvement con rumore avente varianza di 1, probabilit\`a di 0.6 e times=10\relax }}{85}{table.66}}
+\newlabel{plantsrii4}{{66}{85}{dataset: plants. Randomised Iterative Improvement con rumore avente varianza di 1, probabilità di 0.6 e times=10\relax }{table.66}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {67}{\ignorespaces dataset: plants. Randomised Iterative Improvement con rumore avente varianza di 2, probabilit\`a di 0.6 e times=10\relax }}{85}{table.67}}
+\newlabel{plantsrii5}{{67}{85}{dataset: plants. Randomised Iterative Improvement con rumore avente varianza di 2, probabilità di 0.6 e times=10\relax }{table.67}{}}
+\gdef \LT@lxvi {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {68}{\ignorespaces dataset: plants. GRASP senza rumore, k=2 e times=5\relax }}{86}{table.68}}
+\newlabel{plantsgrasp}{{68}{86}{dataset: plants. GRASP senza rumore, k=2 e times=5\relax }{table.68}{}}
+\gdef \LT@lxvii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@lxviii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {69}{\ignorespaces dataset: plants. GRASP con rumore avente varianza di 0.1, k=2 e times=5\relax }}{87}{table.69}}
+\newlabel{plantsgrasp2}{{69}{87}{dataset: plants. GRASP con rumore avente varianza di 0.1, k=2 e times=5\relax }{table.69}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {70}{\ignorespaces dataset: plants. GRASP con rumore avente varianza di 0.5, k=2 e times=5\relax }}{87}{table.70}}
+\newlabel{plantsgrasp3}{{70}{87}{dataset: plants. GRASP con rumore avente varianza di 0.5, k=2 e times=5\relax }{table.70}{}}
+\gdef \LT@lxix {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {71}{\ignorespaces dataset: plants. GRASP con rumore avente varianza di 1, k=2 e times=5\relax }}{88}{table.71}}
+\newlabel{plantsgrasp4}{{71}{88}{dataset: plants. GRASP con rumore avente varianza di 1, k=2 e times=5\relax }{table.71}{}}
+\gdef \LT@lxx {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@lxxi {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {72}{\ignorespaces dataset: plants. GRASP con rumore avente varianza di 2, k=2 e times=5\relax }}{89}{table.72}}
+\newlabel{plantsgrasp5}{{72}{89}{dataset: plants. GRASP con rumore avente varianza di 2, k=2 e times=5\relax }{table.72}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.4}audio}{89}{subsubsection.5.3.4}}
+\@writefile{lot}{\contentsline {table}{\numberline {73}{\ignorespaces dataset: audio. Nessun algoritmo di SLS applicato\relax }}{89}{table.73}}
+\newlabel{audio}{{73}{89}{dataset: audio. Nessun algoritmo di SLS applicato\relax }{table.73}{}}
+\gdef \LT@lxxii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@lxxiii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {74}{\ignorespaces dataset: audio. Nessun algoritmo di SLS applicato, rumore avente varianza di 0.1\relax }}{90}{table.74}}
+\newlabel{audio2}{{74}{90}{dataset: audio. Nessun algoritmo di SLS applicato, rumore avente varianza di 0.1\relax }{table.74}{}}
+\gdef \LT@lxxiv {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {75}{\ignorespaces dataset: audio. Nessun algoritmo di SLS applicato, rumore avente varianza di 0.1\relax }}{91}{table.75}}
+\newlabel{audio3}{{75}{91}{dataset: audio. Nessun algoritmo di SLS applicato, rumore avente varianza di 0.1\relax }{table.75}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {76}{\ignorespaces dataset: audio. Nessun algoritmo di SLS applicato, rumore avente varianza di 1\relax }}{91}{table.76}}
+\newlabel{audio4}{{76}{91}{dataset: audio. Nessun algoritmo di SLS applicato, rumore avente varianza di 1\relax }{table.76}{}}
+\gdef \LT@lxxv {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@lxxvi {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {77}{\ignorespaces dataset: audio. Nessun algoritmo di SLS applicato, rumore avente varianza di 2\relax }}{92}{table.77}}
+\newlabel{audio5}{{77}{92}{dataset: audio. Nessun algoritmo di SLS applicato, rumore avente varianza di 2\relax }{table.77}{}}
+\gdef \LT@lxxvii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {78}{\ignorespaces dataset: audio. Iterative Improvement senza rumore\relax }}{93}{table.78}}
+\newlabel{audioii}{{78}{93}{dataset: audio. Iterative Improvement senza rumore\relax }{table.78}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {79}{\ignorespaces dataset: audio. Iterative Improvement con rumore avente varianza di 0.1\relax }}{93}{table.79}}
+\newlabel{audioii2}{{79}{93}{dataset: audio. Iterative Improvement con rumore avente varianza di 0.1\relax }{table.79}{}}
+\gdef \LT@lxxviii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@lxxix {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {80}{\ignorespaces dataset: audio. Iterative Improvement con rumore avente varianza di 0.5\relax }}{94}{table.80}}
+\newlabel{audioii3}{{80}{94}{dataset: audio. Iterative Improvement con rumore avente varianza di 0.5\relax }{table.80}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {81}{\ignorespaces dataset: audio. Iterative Improvement con rumore avente varianza di 1\relax }}{94}{table.81}}
+\newlabel{audioii4}{{81}{94}{dataset: audio. Iterative Improvement con rumore avente varianza di 1\relax }{table.81}{}}
+\gdef \LT@lxxx {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {82}{\ignorespaces dataset: audio. Iterative Improvement con rumore avente varianza di 2\relax }}{95}{table.82}}
+\newlabel{audioii5}{{82}{95}{dataset: audio. Iterative Improvement con rumore avente varianza di 2\relax }{table.82}{}}
+\gdef \LT@lxxxi {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@lxxxii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {83}{\ignorespaces dataset: audio. Randomised Iterative Improvement senza rumore, con probabilit\`a di 0.6, times=10\relax }}{96}{table.83}}
+\newlabel{audiorii}{{83}{96}{dataset: audio. Randomised Iterative Improvement senza rumore, con probabilità di 0.6, times=10\relax }{table.83}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {84}{\ignorespaces dataset: audio. Randomised Iterative Improvement con rumore avente varianza di 0.1, con probabilit\`a di 0.6, times=10\relax }}{96}{table.84}}
+\newlabel{audiorii2}{{84}{96}{dataset: audio. Randomised Iterative Improvement con rumore avente varianza di 0.1, con probabilità di 0.6, times=10\relax }{table.84}{}}
+\gdef \LT@lxxxiii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {85}{\ignorespaces dataset: audio. Randomised Iterative Improvement con rumore avente varianza di 0.5, con probabilit\`a di 0.6, times=10\relax }}{97}{table.85}}
+\newlabel{audiorii3}{{85}{97}{dataset: audio. Randomised Iterative Improvement con rumore avente varianza di 0.5, con probabilità di 0.6, times=10\relax }{table.85}{}}
+\gdef \LT@lxxxiv {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@lxxxv {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {86}{\ignorespaces dataset: audio. Randomised Iterative Improvement con rumore avente varianza di 1, con probabilit\`a di 0.6, times=10\relax }}{98}{table.86}}
+\newlabel{audiorii4}{{86}{98}{dataset: audio. Randomised Iterative Improvement con rumore avente varianza di 1, con probabilità di 0.6, times=10\relax }{table.86}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {87}{\ignorespaces dataset: audio. Randomised Iterative Improvement con rumore avente varianza di 2, con probabilit\`a di 0.6, times=10\relax }}{98}{table.87}}
+\newlabel{audiorii4}{{87}{98}{dataset: audio. Randomised Iterative Improvement con rumore avente varianza di 2, con probabilità di 0.6, times=10\relax }{table.87}{}}
+\gdef \LT@lxxxvi {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@lxxxvii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {88}{\ignorespaces dataset: audio. GRASP senza rumore, k=2 e times=5\relax }}{99}{table.88}}
+\newlabel{audiograsp}{{88}{99}{dataset: audio. GRASP senza rumore, k=2 e times=5\relax }{table.88}{}}
+\gdef \LT@lxxxviii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {89}{\ignorespaces dataset: audio. GRASP con rumore avente varianza di 0.1, k=2 e times=5\relax }}{100}{table.89}}
+\newlabel{audiograsp2}{{89}{100}{dataset: audio. GRASP con rumore avente varianza di 0.1, k=2 e times=5\relax }{table.89}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {90}{\ignorespaces dataset: audio. GRASP con rumore avente varianza di 0.5, k=2 e times=5\relax }}{100}{table.90}}
+\newlabel{audiograsp3}{{90}{100}{dataset: audio. GRASP con rumore avente varianza di 0.5, k=2 e times=5\relax }{table.90}{}}
+\gdef \LT@lxxxix {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@xc {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {91}{\ignorespaces dataset: audio. GRASP con rumore avente varianza di 1, k=2 e times=5\relax }}{101}{table.91}}
+\newlabel{audiograsp4}{{91}{101}{dataset: audio. GRASP con rumore avente varianza di 1, k=2 e times=5\relax }{table.91}{}}
+\gdef \LT@xci {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {92}{\ignorespaces dataset: audio. GRASP con rumore avente varianza di 2, k=2 e times=5\relax }}{102}{table.92}}
+\newlabel{audiograsp5}{{92}{102}{dataset: audio. GRASP con rumore avente varianza di 2, k=2 e times=5\relax }{table.92}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.5}jester}{102}{subsubsection.5.3.5}}
+\@writefile{lot}{\contentsline {table}{\numberline {93}{\ignorespaces dataset: jester. Nessun algoritmo di SLS applicato\relax }}{102}{table.93}}
+\newlabel{jester}{{93}{102}{dataset: jester. Nessun algoritmo di SLS applicato\relax }{table.93}{}}
+\gdef \LT@xcii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{66.18001pt}}
+\gdef \LT@xciii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{66.18001pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {94}{\ignorespaces dataset: jester. Nessun algoritmo di SLS applicato, con rumore avente varianza di 0.1\relax }}{103}{table.94}}
+\newlabel{jester2}{{94}{103}{dataset: jester. Nessun algoritmo di SLS applicato, con rumore avente varianza di 0.1\relax }{table.94}{}}
+\gdef \LT@xciv {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {95}{\ignorespaces dataset: jester. Nessun algoritmo di SLS applicato, con rumore avente varianza di 0.5\relax }}{104}{table.95}}
+\newlabel{jester3}{{95}{104}{dataset: jester. Nessun algoritmo di SLS applicato, con rumore avente varianza di 0.5\relax }{table.95}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {96}{\ignorespaces dataset: jester. Nessun algoritmo di SLS applicato, con rumore avente varianza di 1\relax }}{104}{table.96}}
+\newlabel{jester4}{{96}{104}{dataset: jester. Nessun algoritmo di SLS applicato, con rumore avente varianza di 1\relax }{table.96}{}}
+\gdef \LT@xcv {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@xcvi {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {97}{\ignorespaces dataset: jester. Nessun algoritmo di SLS applicato, con rumore avente varianza di 2\relax }}{105}{table.97}}
+\newlabel{jester6}{{97}{105}{dataset: jester. Nessun algoritmo di SLS applicato, con rumore avente varianza di 2\relax }{table.97}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {98}{\ignorespaces dataset: jester. Iterative Improvement senza rumore\relax }}{105}{table.98}}
+\newlabel{jesterii}{{98}{105}{dataset: jester. Iterative Improvement senza rumore\relax }{table.98}{}}
+\gdef \LT@xcvii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{66.18001pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {99}{\ignorespaces dataset: jester. Iterative Improvement con rumore avente varianza di 0.1\relax }}{106}{table.99}}
+\newlabel{jesterii2}{{99}{106}{dataset: jester. Iterative Improvement con rumore avente varianza di 0.1\relax }{table.99}{}}
+\gdef \LT@xcviii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{66.18001pt}}
+\gdef \LT@xcix {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {100}{\ignorespaces dataset: jester. Iterative Improvement con rumore avente varianza di 0.5\relax }}{107}{table.100}}
+\newlabel{jesterii3}{{100}{107}{dataset: jester. Iterative Improvement con rumore avente varianza di 0.5\relax }{table.100}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {101}{\ignorespaces dataset: jester. Iterative Improvement con rumore avente varianza di 1\relax }}{107}{table.101}}
+\newlabel{jesterii4}{{101}{107}{dataset: jester. Iterative Improvement con rumore avente varianza di 1\relax }{table.101}{}}
+\gdef \LT@c {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {102}{\ignorespaces dataset: jester. Iterative Improvement con rumore avente varianza di 2\relax }}{108}{table.102}}
+\newlabel{jesterii5}{{102}{108}{dataset: jester. Iterative Improvement con rumore avente varianza di 2\relax }{table.102}{}}
+\gdef \LT@ci {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@cii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{66.18001pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {103}{\ignorespaces dataset: jester. Randomised Iterative Improvement senza rumore, probabilit\`a di 0.6 e times=10\relax }}{109}{table.103}}
+\newlabel{jesterrii}{{103}{109}{dataset: jester. Randomised Iterative Improvement senza rumore, probabilità di 0.6 e times=10\relax }{table.103}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {104}{\ignorespaces dataset: jester. Randomised Iterative Improvement con rumore avente varianza di 0.1, probabilit\`a di 0.6 e times=10\relax }}{109}{table.104}}
+\newlabel{jesterrii2}{{104}{109}{dataset: jester. Randomised Iterative Improvement con rumore avente varianza di 0.1, probabilità di 0.6 e times=10\relax }{table.104}{}}
+\gdef \LT@ciii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{66.18001pt}}
+\gdef \LT@civ {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {105}{\ignorespaces dataset: jester. Randomised Iterative Improvement con rumore avente varianza di 0.5, probabilit\`a di 0.6 e times=10\relax }}{110}{table.105}}
+\newlabel{jesterrii3}{{105}{110}{dataset: jester. Randomised Iterative Improvement con rumore avente varianza di 0.5, probabilità di 0.6 e times=10\relax }{table.105}{}}
+\gdef \LT@cv {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {106}{\ignorespaces dataset: jester. Randomised Iterative Improvement con rumore avente varianza di 1, probabilit\`a di 0.6 e times=10\relax }}{111}{table.106}}
+\newlabel{jesterrii4}{{106}{111}{dataset: jester. Randomised Iterative Improvement con rumore avente varianza di 1, probabilità di 0.6 e times=10\relax }{table.106}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {107}{\ignorespaces dataset: jester. Randomised Iterative Improvement con rumore avente varianza di 2, probabilit\`a di 0.6 e times=10\relax }}{111}{table.107}}
+\newlabel{jesterrii5}{{107}{111}{dataset: jester. Randomised Iterative Improvement con rumore avente varianza di 2, probabilità di 0.6 e times=10\relax }{table.107}{}}
+\gdef \LT@cvi {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@cvii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{66.18001pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {108}{\ignorespaces dataset: jester. GRASP senza rumore, k=2 e times=3\relax }}{112}{table.108}}
+\newlabel{jestergrasp}{{108}{112}{dataset: jester. GRASP senza rumore, k=2 e times=3\relax }{table.108}{}}
+\gdef \LT@cviii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{66.18001pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {109}{\ignorespaces dataset: jester. GRASP con rumore avente varianza di 0.1, k=2 e times=3\relax }}{113}{table.109}}
+\newlabel{jestergrasp2}{{109}{113}{dataset: jester. GRASP con rumore avente varianza di 0.1, k=2 e times=3\relax }{table.109}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {110}{\ignorespaces dataset: jester. GRASP con rumore avente varianza di 0.5, k=2 e times=3\relax }}{113}{table.110}}
+\newlabel{jestergrasp3}{{110}{113}{dataset: jester. GRASP con rumore avente varianza di 0.5, k=2 e times=3\relax }{table.110}{}}
+\gdef \LT@cix {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@cx {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {111}{\ignorespaces dataset: jester. GRASP con rumore avente varianza di 1, k=2 e times=3\relax }}{114}{table.111}}
+\newlabel{jestergrasp4}{{111}{114}{dataset: jester. GRASP con rumore avente varianza di 1, k=2 e times=3\relax }{table.111}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {112}{\ignorespaces dataset: jester. GRASP con rumore avente varianza di 2, k=2 e times=3\relax }}{114}{table.112}}
+\newlabel{jestergrasp5}{{112}{114}{dataset: jester. GRASP con rumore avente varianza di 2, k=2 e times=3\relax }{table.112}{}}
+\gdef \LT@cxi {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.6}accidents}{115}{subsubsection.5.3.6}}
+\@writefile{lot}{\contentsline {table}{\numberline {113}{\ignorespaces dataset: accidents. Nessun algoritmo di SLS applicato\relax }}{115}{table.113}}
+\newlabel{accidentsa}{{113}{115}{dataset: accidents. Nessun algoritmo di SLS applicato\relax }{table.113}{}}
+\gdef \LT@cxii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@cxiii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {114}{\ignorespaces dataset: accidents. Nessun algoritmo di SLS applicato, rumore con varianza di 0.1\relax }}{116}{table.114}}
+\newlabel{accidentsa2}{{114}{116}{dataset: accidents. Nessun algoritmo di SLS applicato, rumore con varianza di 0.1\relax }{table.114}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {115}{\ignorespaces dataset: accidents. Nessun algoritmo di SLS applicato, rumore con varianza di 0.5\relax }}{116}{table.115}}
+\newlabel{accidentsa3}{{115}{116}{dataset: accidents. Nessun algoritmo di SLS applicato, rumore con varianza di 0.5\relax }{table.115}{}}
+\gdef \LT@cxiv {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {116}{\ignorespaces dataset: accidents. Nessun algoritmo di SLS applicato, rumore con varianza di 1\relax }}{117}{table.116}}
+\newlabel{accidentsa4}{{116}{117}{dataset: accidents. Nessun algoritmo di SLS applicato, rumore con varianza di 1\relax }{table.116}{}}
+\gdef \LT@cxv {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@cxvi {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {117}{\ignorespaces dataset: accidents. Nessun algoritmo di SLS applicato, rumore con varianza di 2\relax }}{118}{table.117}}
+\newlabel{accidentsa5}{{117}{118}{dataset: accidents. Nessun algoritmo di SLS applicato, rumore con varianza di 2\relax }{table.117}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {118}{\ignorespaces dataset: accidents. Iterative Improvement senza rumore.\relax }}{118}{table.118}}
+\newlabel{accidentsii}{{118}{118}{dataset: accidents. Iterative Improvement senza rumore.\relax }{table.118}{}}
+\gdef \LT@cxvii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@cxviii {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {119}{\ignorespaces dataset: accidents. Iterative Improvement con rumore avente varianza di 0.1.\relax }}{119}{table.119}}
+\newlabel{accidentsii2}{{119}{119}{dataset: accidents. Iterative Improvement con rumore avente varianza di 0.1.\relax }{table.119}{}}
+\gdef \LT@cxix {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {120}{\ignorespaces dataset: accidents. Iterative Improvement con rumore avente varianza di 0.5.\relax }}{120}{table.120}}
+\newlabel{accidentsii3}{{120}{120}{dataset: accidents. Iterative Improvement con rumore avente varianza di 0.5.\relax }{table.120}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {121}{\ignorespaces dataset: accidents. Iterative Improvement con rumore avente varianza di 1.\relax }}{120}{table.121}}
+\newlabel{accidentsii5}{{121}{120}{dataset: accidents. Iterative Improvement con rumore avente varianza di 1.\relax }{table.121}{}}
+\gdef \LT@cxx {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@cxxi {\LT@entry 
+    {1}{40.06917pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {122}{\ignorespaces dataset: accidents. Iterative Improvement con rumore avente varianza di 2.\relax }}{121}{table.122}}
+\newlabel{accidentsii4}{{122}{121}{dataset: accidents. Iterative Improvement con rumore avente varianza di 2.\relax }{table.122}{}}
+\gdef \LT@cxxii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {123}{\ignorespaces dataset: accidents. Randomised Iterative Improvement senza rumore, probabilit\`a di 0.6 e times=10\relax }}{122}{table.123}}
+\newlabel{accidentsrii}{{123}{122}{dataset: accidents. Randomised Iterative Improvement senza rumore, probabilità di 0.6 e times=10\relax }{table.123}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {124}{\ignorespaces dataset: accidents. Randomised Iterative Improvement con rumore avente 0.1 di varianza, probabilit\`a di 0.6 e times=10\relax }}{122}{table.124}}
+\newlabel{accidentsrii2}{{124}{122}{dataset: accidents. Randomised Iterative Improvement con rumore avente 0.1 di varianza, probabilità di 0.6 e times=10\relax }{table.124}{}}
+\gdef \LT@cxxiii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@cxxiv {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {125}{\ignorespaces dataset: accidents. Randomised Iterative Improvement con rumore avente 0.5 di varianza, probabilit\`a di 0.6 e times=10\relax }}{123}{table.125}}
+\newlabel{accidentsrii3}{{125}{123}{dataset: accidents. Randomised Iterative Improvement con rumore avente 0.5 di varianza, probabilità di 0.6 e times=10\relax }{table.125}{}}
+\gdef \LT@cxxv {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {126}{\ignorespaces dataset: accidents. Randomised Iterative Improvement con rumore avente 1 di varianza, probabilit\`a di 0.6 e times=10\relax }}{124}{table.126}}
+\newlabel{accidentsrii4}{{126}{124}{dataset: accidents. Randomised Iterative Improvement con rumore avente 1 di varianza, probabilità di 0.6 e times=10\relax }{table.126}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {127}{\ignorespaces dataset: accidents. Randomised Iterative Improvement con rumore avente 2 di varianza, probabilit\`a di 0.6 e times=10\relax }}{124}{table.127}}
+\newlabel{accidentsrii5}{{127}{124}{dataset: accidents. Randomised Iterative Improvement con rumore avente 2 di varianza, probabilità di 0.6 e times=10\relax }{table.127}{}}
+\gdef \LT@cxxvi {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@cxxvii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {128}{\ignorespaces dataset: accidents. GRASP senza rumore, k=2 e times=5\relax }}{125}{table.128}}
+\newlabel{accidentsgrasp}{{128}{125}{dataset: accidents. GRASP senza rumore, k=2 e times=5\relax }{table.128}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {129}{\ignorespaces dataset: accidents. GRASP con rumore avente varianza di 0.1, k=2 e times=5\relax }}{125}{table.129}}
+\newlabel{accidentsgrasp2}{{129}{125}{dataset: accidents. GRASP con rumore avente varianza di 0.1, k=2 e times=5\relax }{table.129}{}}
+\gdef \LT@cxxviii {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {130}{\ignorespaces dataset: accidents. GRASP con rumore avente varianza di 0.5, k=2 e times=5\relax }}{126}{table.130}}
+\newlabel{accidentsgrasp3}{{130}{126}{dataset: accidents. GRASP con rumore avente varianza di 0.5, k=2 e times=5\relax }{table.130}{}}
+\gdef \LT@cxxix {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\gdef \LT@cxxx {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {131}{\ignorespaces dataset: accidents. GRASP con rumore avente varianza di 1, k=2 e times=5\relax }}{127}{table.131}}
+\newlabel{accidentsgrasp4}{{131}{127}{dataset: accidents. GRASP con rumore avente varianza di 1, k=2 e times=5\relax }{table.131}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {132}{\ignorespaces dataset: accidents. GRASP con rumore avente varianza di 2, k=2 e times=5\relax }}{127}{table.132}}
+\newlabel{accidentsgrasp5}{{132}{127}{dataset: accidents. GRASP con rumore avente varianza di 2, k=2 e times=5\relax }{table.132}{}}
+\gdef \LT@cxxxi {\LT@entry 
+    {1}{56.38844pt}\LT@entry 
+    {1}{40.78722pt}\LT@entry 
+    {1}{60.30507pt}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Discussione}{128}{subsection.5.4}}
+\newlabel{disc}{{5.4}{128}{Discussione}{subsection.5.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.1}Versione originale di base}{128}{subsubsection.5.4.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces \relax }}{130}{figure.caption.18}}
+\newlabel{fig:nltcsfig}{{12}{130}{\relax }{figure.caption.18}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces \relax }}{131}{figure.caption.19}}
+\newlabel{fig:trainvalidtestfig}{{13}{131}{\relax }{figure.caption.19}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces \relax }}{132}{figure.caption.20}}
+\newlabel{fig:plants}{{14}{132}{\relax }{figure.caption.20}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.2}Iterative improvement}{132}{subsubsection.5.4.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces \relax }}{133}{figure.caption.21}}
+\newlabel{fig:audiofig}{{15}{133}{\relax }{figure.caption.21}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces \relax }}{134}{figure.caption.22}}
+\newlabel{fig:accfig}{{16}{134}{\relax }{figure.caption.22}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.3}Randomised iterative improvement}{135}{subsubsection.5.4.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Grafico derivato dal dataset ''msnbc''\relax }}{135}{figure.caption.23}}
+\newlabel{fig:riifig}{{17}{135}{Grafico derivato dal dataset ''msnbc''\relax }{figure.caption.23}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.4}GRASP}{136}{subsubsection.5.4.4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces Grafico derivato dal dataset ''jester''\relax }}{136}{figure.caption.24}}
+\newlabel{fig:graspfig}{{18}{136}{Grafico derivato dal dataset ''jester''\relax }{figure.caption.24}{}}
+\citation{dimauro}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusioni}{138}{section.6}}
+\newlabel{conc}{{6}{138}{Conclusioni}{section.6}{}}
+\@writefile{toc}{\contentsline {section}{Ringraziamenti}{139}{section*.25}}
+\bibcite{chowliu}{1}
+\bibcite{rahman}{2}
+\bibcite{dimauro}{3}
+\bibcite{onisko}{4}
+\bibcite{slsbook}{5}
+\bibcite{koller}{6}
+\bibcite{bre96}{7}
+\bibcite{manuscript}{8}
+\bibcite{friedman}{9}
+\bibcite{heckerman}{10}
+\bibcite{lowd}{11}
+\bibcite{haaren}{12}
+\bibcite{meila}{13}
+\@writefile{toc}{\contentsline {section}{Riferimenti bibliografici}{140}{section*.26}}
+\bibcite{dechter}{14}
+\bibcite{krusk}{15}
+\bibcite{kullback}{16}
+\bibcite{bishop}{17}
+\bibcite{bishop2}{18}

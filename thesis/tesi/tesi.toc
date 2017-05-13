@@ -1,0 +1,52 @@
+\select@language {italian}
+\select@language {italian}
+\contentsline {section}{\numberline {1}Introduzione}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}Contesto}{3}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Strutturazione del documento}{4}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Concetti preliminari}{4}{subsection.1.3}
+\contentsline {section}{\numberline {2}Machine Learning e Probabilistic Graphical Models}{7}{section.2}
+\contentsline {subsection}{\numberline {2.1}Machine Learning}{7}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Tipologie di apprendimento}{7}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}Valutazione}{7}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.3}Density Estimation}{8}{subsubsection.2.1.3}
+\contentsline {subsection}{\numberline {2.2}Probabilistic Graphical Models}{11}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Reti Bayesiane}{11}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Alberi di Chow-Liu}{13}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}Misture di PGM}{16}{subsubsection.2.2.3}
+\contentsline {subsubsection}{\numberline {2.2.4}Alberi OR}{17}{subsubsection.2.2.4}
+\contentsline {subsubsection}{\numberline {2.2.5}Cutset Networks}{18}{subsubsection.2.2.5}
+\contentsline {paragraph}{Definizione: Cutset Network.}{19}{section*.9}
+\contentsline {subsubsection}{\numberline {2.2.6}Apprendimento delle Cutset Networks}{19}{subsubsection.2.2.6}
+\contentsline {subsubsection}{\numberline {2.2.7}Decomposability based Cutset Network learning}{20}{subsubsection.2.2.7}
+\contentsline {section}{\numberline {3}Tecniche di Stochastic Local Search}{25}{section.3}
+\contentsline {subsection}{\numberline {3.1}Ricerca locale e problemi combinatoriali}{25}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Paradigmi di ricerca}{27}{subsubsection.3.1.1}
+\contentsline {subsection}{\numberline {3.2}Ricerca stocastica}{28}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Iterative improvement}{29}{subsection.3.3}
+\contentsline {paragraph}{Minimo locale e problemi annessi.}{30}{section*.13}
+\contentsline {paragraph}{Definizione: Minimo locale.}{31}{section*.14}
+\contentsline {subsection}{\numberline {3.4}Randomised iterative improvement}{31}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Greedy Randomised Adaptive Search Procedures}{32}{subsection.3.5}
+\contentsline {section}{\numberline {4}Stochastic Local Search per Cutset Network}{35}{section.4}
+\contentsline {subsection}{\numberline {4.1}Apprendimento di foreste}{35}{subsection.4.1}
+\contentsline {paragraph}{Definizione: Foresta di Chow-Liu}{35}{section*.15}
+\contentsline {subsection}{\numberline {4.2}Aggiunta di rumore}{37}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Stochastic Local Search per l'apprendimento di Cutset Network}{37}{subsection.4.3}
+\contentsline {section}{\numberline {5}Sperimentazioni}{42}{section.5}
+\contentsline {subsection}{\numberline {5.1}Datasets}{42}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Dettagli implementativi}{43}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Risultati}{43}{subsection.5.3}
+\contentsline {subsubsection}{\numberline {5.3.1}nltcs}{44}{subsubsection.5.3.1}
+\contentsline {subsubsection}{\numberline {5.3.2}msnbc}{64}{subsubsection.5.3.2}
+\contentsline {subsubsection}{\numberline {5.3.3}plants}{76}{subsubsection.5.3.3}
+\contentsline {subsubsection}{\numberline {5.3.4}audio}{89}{subsubsection.5.3.4}
+\contentsline {subsubsection}{\numberline {5.3.5}jester}{102}{subsubsection.5.3.5}
+\contentsline {subsubsection}{\numberline {5.3.6}accidents}{115}{subsubsection.5.3.6}
+\contentsline {subsection}{\numberline {5.4}Discussione}{128}{subsection.5.4}
+\contentsline {subsubsection}{\numberline {5.4.1}Versione originale di base}{128}{subsubsection.5.4.1}
+\contentsline {subsubsection}{\numberline {5.4.2}Iterative improvement}{132}{subsubsection.5.4.2}
+\contentsline {subsubsection}{\numberline {5.4.3}Randomised iterative improvement}{135}{subsubsection.5.4.3}
+\contentsline {subsubsection}{\numberline {5.4.4}GRASP}{136}{subsubsection.5.4.4}
+\contentsline {section}{\numberline {6}Conclusioni}{138}{section.6}
+\contentsline {section}{Ringraziamenti}{139}{section*.25}
+\contentsline {section}{Riferimenti bibliografici}{140}{section*.26}
