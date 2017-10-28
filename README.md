@@ -57,9 +57,9 @@ Learn a single csn using grasp. While constructing the minimum spanning tree cho
                             approach(ii : Iterative improvement,rii: Randomised Iterative improvement )
 
 
-## Copyright (C) 2015
+## Copyright (C) 2017
 
-    Nicola Di Mauro, Antonio Vergari 
+    Nicola Di Mauro, Antonio Vergari, Claudio Mastronardo
     Department of Computer Science 
     University of Bari, Bari, Italy 
 
